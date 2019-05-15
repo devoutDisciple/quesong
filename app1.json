@@ -9,7 +9,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",//导航栏背景颜色
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "雀送", //导航栏标题文字内容
     "navigationBarTextStyle": "black" //导航栏标题颜色
   },
   "sitemapLocation": "sitemap.json",

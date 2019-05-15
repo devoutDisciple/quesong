@@ -2,7 +2,7 @@
 //获取应用实例
 const app = getApp()
 const citys = {
-  '浙江': ['杭州', '宁波', '温州', '嘉兴', '湖州'],
+  '浙江': ['杭州', '宁波', '州', '嘉兴', '湖州'],
   '福建': ['福州', '厦门', '莆田', '三明', '泉州']
 };
 Page({
@@ -41,7 +41,9 @@ Page({
     this.setData({ show: false });
     console.log(123)
   },
-
+  onGotUserInfo: function(a, b, c) {
+    console.log(a, b, c)
+  },
   onSelect(event) {
     console.log(event.detail);
   },
