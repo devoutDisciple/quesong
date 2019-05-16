@@ -1,4 +1,7 @@
 // pages/home/home.js
+const app = getApp();
+
+  
 Page({
 
   /**
@@ -16,6 +19,7 @@ Page({
     duration: 1000
   },
   changeIndicatorDots(e) {
+    
     this.setData({
       indicatorDots: !this.data.indicatorDots
     })
@@ -39,7 +43,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**

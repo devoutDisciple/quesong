@@ -1,9 +1,10 @@
 {
   "pages": [
+    "pages/my/my",
     "pages/home/home",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/my/my",
+    
     "pages/order/order"
   ],
   "window": {
@@ -41,17 +42,8 @@
     "van-button": "dist/button/index",
     "van-action-sheet": "dist/action-sheet/index",
     "van-picker": "dist/picker/index",
-    "i-button": "dist/button/index"
-  },
-  "permission": {
-    "scope.userLocation": {
-      "desc": "你的位置信息将用于小程序位置接口的效果展示"
-    },
-    "scope.userInfo": {
-      "desc": "你的用户信息"
-    },
-    "scope.camera": {
-      "desc": "获取您的摄像头权限"
-    }
+    "van-row": "dist/row/index",
+    "van-col": "dist/col/index",
+    "van-icon": "dist/icon/index"
   }
 }
