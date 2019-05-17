@@ -1,1 +1,78 @@
 /* pages/shop/shop.wxss */
+.shop{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    font-size: 14px;
+    color: #333;
+    background: #fff;
+}
+.shop_header{
+    height: 80px;
+    padding: 10px;
+    background: #333;
+}
+.shop_header_img{
+    height: 80px;
+    width: 80px;
+}
+.shop_header_img image{
+    height: 100%;
+    width: 100%;
+}
+.shop_header_desc{
+    height: 80px;
+    width: calc(100vw - 110px);
+    margin-left: 10px;
+    color: #fff;
+}
+.shop_header_desc_text{
+    height: 40px;
+    font-size: 12px;
+    line-height: 15px;
+    overflow: hidden;
+}
+.shop_header_desc_send, .shop_header_desc_tag{
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+}
+.shop_header_desc_tag_item{
+    margin-right: 10px;
+}
+
+/* 商家列表 */
+.shop_content{
+    height: calc(100vh - 150px);
+    overflow: hidden;
+}
+.shop_content_list{
+    height: calc(100vh - 194px);
+    background: blue;
+}
+.shop_content_list_type{
+    height: 100%;
+    width: 100px;
+}
+.shop_content_list_type_scroll{
+    height: 100%;
+    width: 100px;
+}
+.shop_content_list_type_item{
+    height: 60px;
+    line-height: 60px;
+    background: #f8f8f8;
+    text-align: center;
+}
+.shop_content_list_type_item_active{
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    background: #fff;
+    border-left: 2px solid #91f1d1;
+}
+/* 底部 */
+.shop_footer{
+    height: 50px;
+    background: gray;
+}

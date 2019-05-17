@@ -5,9 +5,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    imgUrl: "https://quesong.top/attachment/images/2/2019/05/Cej3XdyZFkYp1pxqQYjfJMzS1jY3yZ.jpeg", // 商品图片
+    typeNum: 30,
+    goodsNum: 50,
+    selectIndex: 0
   },
-
+  // 选择左侧菜单
+  changeSelectIndex(e) {
+    let index = e.currentTarget.dataset.index;
+    this.setData({
+      selectIndex: index
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
