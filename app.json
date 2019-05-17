@@ -1,18 +1,18 @@
 {
   "pages": [
-    "pages/my/my",
+    "pages/shopDetail/shopDetail",
     "pages/home/home",
+    "pages/my/my",
     "pages/index/index",
     "pages/logs/logs",
-    
-    "pages/order/order"
+    "pages/order/order",
+    "pages/test/test"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "雀送",
-    "navigationBarTextStyle": "black",
-    "enablePullDownRefresh": true
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "color": "#9c9c9c",
@@ -35,6 +35,12 @@
         "text": "我的",
         "iconPath": "asserts/imgs/my.png",
         "selectedIconPath": "asserts/imgs/mySelect.png"
+      },
+      {
+        "pagePath": "pages/test/test",
+        "text": "test",
+        "iconPath": "asserts/imgs/my.png",
+        "selectedIconPath": "asserts/imgs/mySelect.png"
       }
     ]
   },
@@ -44,6 +50,13 @@
     "van-picker": "dist/picker/index",
     "van-row": "dist/row/index",
     "van-col": "dist/col/index",
-    "van-icon": "dist/icon/index"
-  }
+    "van-icon": "dist/icon/index",
+    "van-search": "dist/search/index",
+    "van-popup": "dist/popup/index",
+    "van-card": "dist/card/index",
+    "van-tab": "dist/tab/index",
+    "van-tabs": "dist/tabs/index",
+    "van-tag": "dist/tag/index"
+  },
+  "sitemapLocation": "sitemap85.json"
 }

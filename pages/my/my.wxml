@@ -23,7 +23,7 @@
     <van-row custom-class="empty"></van-row>
     <van-row custom-class="my_list">
         <van-row custom-class="my_list_item">
-            <van-col span="2">
+            <van-col custom-class="my_list_item_icon" span="2">
                 <van-icon name="location-o" />
             </van-col>
             <van-col span="20">
@@ -34,7 +34,7 @@
             </van-col>
         </van-row>
         <van-row custom-class="my_list_item">
-            <van-col span="2">
+            <van-col custom-class="my_list_item_icon" span="2">
                 <van-icon name="service-o" />
             </van-col>
             <van-col span="20">
@@ -45,7 +45,7 @@
             </van-col>
         </van-row>
         <van-row custom-class="my_list_item my_list_item_last">
-            <van-col span="2">
+            <van-col custom-class="my_list_item_icon" span="2">
                 <van-icon name="location-o" />
             </van-col>
             <van-col span="20">

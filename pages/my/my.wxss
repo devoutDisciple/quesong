@@ -37,3 +37,6 @@
 .my_list_item_last{
     border-bottom: none;
 }
+.my_list_item_icon{
+    color: #5df3d4;
+}

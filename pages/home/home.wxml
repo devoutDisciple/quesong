@@ -1,20 +1,129 @@
 <!--pages/home/home.wxml-->
-<button class="btn" type="primary" loading="{{loading}}" disabled="{{disabled}}" bindtap="onTap">
-    按钮文本
-</button>
-<swiper
-  indicator-dots="{{true}}"
-  autoplay="{{true}}"
-  interval="{{3000}}"
-  duration="{{500}}"
->
-  <block wx:for="{{imgUrls}}" wx:key="{{index}}">
-    <swiper-item>
-      <image src="{{item}}" class="slide-image" width="355" height="150" />
-    </swiper-item>
-  </block>
-</swiper>
-<button bindtap="changeIndicatorDots">indicator-dots</button>
-<button bindtap="changeAutoplay">autoplay</button>
-<slider bindchange="intervalChange" show-value min="500" max="2000" />
-<slider bindchange="durationChange" show-value min="1000" max="10000" />
+<view class="home">
+  <!-- 头部导航 -->
+  <van-row custom-class="home_header">
+    <van-row custom-class="home_header_location">
+        <van-col span="2">
+          <van-icon name="location-o" />
+        </van-col>
+        <van-col span="16">
+          <!-- <button bindtap="onShowPositionDialog">开关</button> -->
+          <view bindtap="onShowPositionDialog" class="home_header_location_text">
+            <text>{{position}}</text>
+            <van-icon custom-class="home_header_location_icon" name="arrow-down" />
+          </view>
+        </van-col>
+        <!-- <van-col span="4">分享</van-col> -->
+      </van-row>
+    <van-row>
+        <van-search
+          value="{{ value }}"
+          placeholder="请输入"
+          use-action-slot
+          bind:search="onSearch">
+          <view slot="action" bind:tap="onSearch">搜索</view>
+        </van-search>
+    </van-row>
+  </van-row>
+  <!-- <van-row></van-row> -->
+  
+  <scroll-view
+    scroll-y
+    class="home_content">
+    <!-- 轮播图 -->
+    <van-row custom-class="home_content_swiper">
+      <swiper
+        indicator-dots="{{true}}"
+        autoplay="{{true}}"
+        interval="{{interval}}"
+        duration="{{duration}}">
+        <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+          <swiper-item>
+            <image src="{{item}}" class="slide-image"/>
+          </swiper-item>
+        </block>
+      </swiper>
+    </van-row>
+    <!-- 分类 -->
+    <van-row custom-class="home_content_type">
+      <van-col custom-class="home_content_type_item" span="6" wx:for="{{type}}" wx:key="{{index}}">
+        <van-row custom-class="home_content_type_item_icon">
+          <van-icon name="https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640" />
+        </van-row>
+        <van-row custom-class="home_content_type_item_text">
+          <text>{{item.name}}</text>
+        </van-row>
+      </van-col>
+    </van-row>
+    <!-- 免费霸王餐 -->
+    <!-- <van-row></van-row> -->
+    <van-row custom-class="home_content_free">
+      <van-row custom-class="home_content_free_title"><text>免费霸王餐</text></van-row>
+      <scroll-view class="scroll-view_H"  scroll-x class="home_content_free_content">
+        <view class="home_content_free_item" wx:for="{{freeGoodsNum}}" wx:key="{{index}}">
+          <van-row class="home_content_free_item_img">
+            <image src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2461663585,1009763712&fm=26&gp=0.jpg" />
+          </van-row>
+          <van-row class="home_content_free_item_desc">
+            <text>老北京火锅老北京火锅老北京火锅老北京火锅老北京火锅</text>
+          </van-row>
+          <van-row class="home_content_free_item_price">
+            <text class="home_content_free_item_price_origin">￥0.00</text>
+            <text class="home_content_free_item_price_discount">￥10.00</text>
+          </van-row>
+        </view>
+      </scroll-view>
+    </van-row>
+    <!-- 商品列表 -->
+    <van-row custom-class="home_content_goods">
+      <van-row custom-class="home_content_goods_title">附近商家</van-row>
+      <van-row custom-class="home_content_goods_type">
+        <van-tabs active="{{ 0 }}" bind:change="onChange">
+          <van-tab title="综合排序">
+            <van-row bind:tap="shopClick" data-name="KFC肯德基(hello world)" custom-class="home_content_goods_item" wx:for="{{goodsNum}}" wx:key="{{index}}">
+              <van-col custom-class="home_content_goods_item_img">
+                <image src="{{imgUrl}}" />
+              </van-col>
+              <van-col custom-class="home_content_goods_item_introduce">
+                <van-row custom-class="home_content_goods_item_introduce_title">
+                  <text>KFC肯德基(hello world)</text>
+                </van-row>
+                <van-row custom-class="home_content_goods_item_introduce_sale">
+                  <van-col span="16">
+                    <text>月售7778</text>
+                  </van-col>
+                  <van-col span="8">
+                    <van-tag round type="primary">雀送到楼</van-tag>
+                  </van-col>
+                </van-row>
+                <van-row custom-class="home_content_goods_item_introduce_send">
+                  <text>起送 ￥20   配送 ￥2</text>
+                </van-row>
+                <van-row custom-class="home_content_goods_item_introduce_tag">
+                  <van-tag plain type="danger">满30减5</van-tag>
+                  <van-tag plain type="danger">满30减5</van-tag>
+                  <van-tag plain type="danger">满30减5</van-tag>
+                  <van-tag plain type="danger">满30减5</van-tag>
+                </van-row>
+              </van-col>
+              <van-col span="20"></van-col>
+            </van-row>
+          </van-tab>
+          <van-tab title="销量最高">内容 2</van-tab>
+        </van-tabs>
+      </van-row>
+    </van-row>
+  </scroll-view>
+
+  <van-action-sheet
+    show="{{ positionDialogVisible }}"
+    bind:close="onShowPositionDialog">
+    <van-picker 
+      show-toolbar="{{true}}"
+      columns="{{ columns }}" 
+      title=""
+      bind:change="onChangePosition"
+      bind:cancel="onCancelPosition"
+      bind:confirm="onConfirmPosition" />
+  </van-action-sheet>
+</view>
