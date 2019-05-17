@@ -136,7 +136,7 @@ Page({
     console.log(e.currentTarget.dataset.name);
     // 跳转到详情页
     wx.navigateTo({
-      url: '../shopDetail/shopDetail',
+      url: '../shop/shop',
       success: function() {
         // 设置标题
         wx.setNavigationBarTitle({

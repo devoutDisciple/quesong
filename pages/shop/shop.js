@@ -1,4 +1,4 @@
-// pages/shopDetail/shopDetail.js
+// pages/shop/shop.js
 Page({
 
   /**
@@ -19,8 +19,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-     // 设置标题
-     wx.setNavigationBarTitle({
+    // 设置标题
+    wx.setNavigationBarTitle({
       title: "KFC肯德基(hello world)"
     })
     // 设置导航栏颜色
