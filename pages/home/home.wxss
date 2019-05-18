@@ -6,7 +6,7 @@
     color: #333;
 }
 .home_header{
-    height: 85px;
+    height: 80px;
 }
 .home_header_location{
     padding-left: 10px;
@@ -20,7 +20,7 @@
     margin-top: 0px;
 }
 .home_content{
-    height: calc(100vh - 85px);
+    height: calc(100vh - 80px);
     width: 100vw;
 }
 .home_content_swiper{

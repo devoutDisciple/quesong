@@ -1,0 +1,49 @@
+<!--pages/type/type.wxml-->
+<!-- <van-row></van-row> -->
+<view class="type">
+    <van-row custom-class="type_search">
+        <van-search
+          value="{{ value }}"
+          placeholder="请输入"
+          use-action-slot
+          bind:search="onSearch">
+          <view slot="action" bindtap="onSearch">搜索</view>
+        </van-search>
+    </van-row>
+    <van-row custom-class="type_content">
+      <van-tabs active="{{ 0 }}" bind:change="onChange">
+        <van-tab title="综合排序">
+          <scroll-view scroll-y class="type_content_scroll">
+            <van-row bind:tap="shopClick" data-name="KFC肯德基(hello world)" custom-class="home_content_goods_item" wx:for="{{goodsNum}}" wx:key="{{index}}">
+              <van-col custom-class="home_content_goods_item_img">
+                <image src="{{imgUrl}}" />
+              </van-col>
+              <van-col custom-class="home_content_goods_item_introduce">
+                <van-row custom-class="home_content_goods_item_introduce_title">
+                  <text>KFC肯德基(hello world)</text>
+                </van-row>
+                <van-row custom-class="home_content_goods_item_introduce_sale">
+                  <van-col span="16">
+                    <text>月售7778</text>
+                  </van-col>
+                  <van-col span="8">
+                    <van-tag round type="primary">雀送到楼</van-tag>
+                  </van-col>
+                </van-row>
+                <van-row custom-class="home_content_goods_item_introduce_send">
+                  <text>起送 ￥20   配送 ￥2</text>
+                </van-row>
+                <van-row custom-class="home_content_goods_item_introduce_tag">
+                  <van-tag plain type="danger">满30减5</van-tag>
+                  <van-tag plain type="danger">满30减5</van-tag>
+                  <van-tag plain type="danger">满30减5</van-tag>
+                  <van-tag plain type="danger">满30减5</van-tag>
+                </van-row>
+              </van-col>
+            </van-row>
+          </scroll-view>
+        </van-tab>
+        <van-tab title="销量最高">内容 2</van-tab>
+      </van-tabs>
+    </van-row>
+</view>

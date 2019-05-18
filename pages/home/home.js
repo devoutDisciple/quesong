@@ -136,7 +136,7 @@ Page({
     console.log(e.currentTarget.dataset.name);
     // 跳转到详情页
     wx.navigateTo({
-      url: '../shop/shop',
+      url: '/pages/shop/shop',
       success: function() {
         // 设置标题
         wx.setNavigationBarTitle({
@@ -148,6 +148,13 @@ Page({
           backgroundColor: "#333"//背景颜色值
         })
       }
+    })
+  },
+  // type点击
+  toTypeListPage() {
+    // 跳转到type页面
+    wx.navigateTo({
+      url: '/pages/type/type'
     })
   },
   // 按条件遍历
@@ -235,7 +242,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    // 设置标题
+    wx.setNavigationBarTitle({
+      title: "首页"
+    })
+    // 设置导航栏颜色
+    wx.setNavigationBarColor({
+      frontColor: "#000000",//前景颜色值
+      backgroundColor: "#ffffff"//背景颜色值
+    })
   },
 
   /**

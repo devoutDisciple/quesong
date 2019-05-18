@@ -46,7 +46,7 @@
     </van-row>
     <!-- 分类 -->
     <van-row custom-class="home_content_type">
-      <van-col custom-class="home_content_type_item" span="6" wx:for="{{type}}" wx:key="{{index}}">
+      <van-col bindtap="toTypeListPage" custom-class="home_content_type_item" span="6" wx:for="{{type}}" wx:key="{{index}}">
         <van-row custom-class="home_content_type_item_icon">
           <van-icon name="https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640" />
         </van-row>
@@ -59,7 +59,7 @@
     <!-- <van-row></van-row> -->
     <van-row custom-class="home_content_free">
       <van-row custom-class="home_content_free_title"><text>免费霸王餐</text></van-row>
-      <scroll-view class="scroll-view_H"  scroll-x class="home_content_free_content">
+      <scroll-view scroll-x class="home_content_free_content">
         <view class="home_content_free_item" wx:for="{{freeGoodsNum}}" wx:key="{{index}}">
           <van-row class="home_content_free_item_img">
             <image src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2461663585,1009763712&fm=26&gp=0.jpg" />
@@ -106,7 +106,6 @@
                   <van-tag plain type="danger">满30减5</van-tag>
                 </van-row>
               </van-col>
-              <van-col span="20"></van-col>
             </van-row>
           </van-tab>
           <van-tab title="销量最高">内容 2</van-tab>

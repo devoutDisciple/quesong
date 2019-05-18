@@ -39,8 +39,37 @@
                             </van-row>
                         </scroll-view>
                     </van-col>
-                    <van-col custom-class="shop_content_list_item">
-                        <scroll-view class="shop_content_list_item_scroll" scroll-y></scroll-view>
+                    <van-col custom-class="shop_content_list_goods">
+                        <scroll-view class="shop_content_list_goods_scroll" scroll-y>
+                            <van-row custom-class="shop_content_list_goods_title">水果</van-row>
+                            <van-row 
+                                custom-class="shop_content_list_goods_item" 
+                                wx:for="{{typeNum}}" 
+                                wx:key="{{index}}">
+                                <van-col custom-class="shop_content_list_goods_item_img">
+                                    <image src="{{goodsUrl}}" />
+                                </van-col>
+                                <van-col custom-class="shop_content_list_goods_item_introduce">
+                                    <van-row custom-class="shop_content_list_goods_item_introduce_title">
+                                        黄焖鸡米饭
+                                    </van-row>
+                                    <van-row custom-class="shop_content_list_goods_item_introduce_desc">
+                                        黄焖鸡米饭好吃不贵
+                                    </van-row>
+                                    <van-row custom-class="shop_content_list_goods_item_introduce_sale">
+                                        月售7778
+                                    </van-row>
+                                    <van-row custom-class="shop_content_list_goods_item_introduce_send">
+                                        <van-col span="8" custom-class="shop_content_list_goods_item_introduce_send_price">
+                                            ￥20
+                                        </van-col>
+                                        <van-col span="8" offset="8" custom-class="shop_content_list_goods_item_introduce_send_icon">
+                                            <image src="/asserts/imgs/add.png" />
+                                        </van-col>
+                                    </van-row>
+                                </van-col>
+                            </van-row>
+                        </scroll-view>
                     </van-col>
                 </van-row>
             </van-tab>

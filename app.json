@@ -1,13 +1,13 @@
 {
   "pages": [
-    "pages/shop/shop",
     "pages/home/home",
+    "pages/order/order",
     "pages/my/my",
+    "pages/type/type",
+    "pages/shop/shop",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/order/order",
     "pages/test/test"
-    
   ],
   "window": {
     "backgroundTextStyle": "light",
