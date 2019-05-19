@@ -30,6 +30,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null, // 用户信息
+    code: "", // 用户code
   }
 })

@@ -13,7 +13,7 @@
     padding-bottom:10px;
 }
 .my_userinfo button{
-    width: 80%;
+    width: 200px;
 }
 .my_userinfo image{
     width: 50px;

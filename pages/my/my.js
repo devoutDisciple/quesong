@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+const request = require("../../utils/request")
 Page({
   data: {
     motto: 'Hello World',
@@ -30,6 +30,7 @@ Page({
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
         success: res => {
+          console.log(res, 2355)
           app.globalData.userInfo = res.userInfo
           this.setData({
             userInfo: res.userInfo,
@@ -45,6 +46,24 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+    // 登录
+    wx.login({
+      success: res => {
+        console.log(res, "login-------------1111")
+        let code = res.code || ""
+        request.get({
+          url: "/user/register",
+          data: {
+            code: code,
+            name: e.detail.userInfo.nickName,
+            avatarUrl: e.detail.userInfo.avatarUrl,
+          }
+        }).then(res => {
+          console.log(res, 11)
+        })
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+      }
     })
   }
 })

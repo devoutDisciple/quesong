@@ -157,6 +157,7 @@ Page({
       url: '/pages/type/type'
     })
   },
+  
   // 按条件遍历
   // circulationByCondition(citys, columns, name) {
   //   let column = {
@@ -236,6 +237,13 @@ Page({
         }
       })
     })
+    // 判断用户是否登录
+    console.log(app);
+    if(!app.globalData.userInfo) {
+      this.setData({
+        isLogin: false
+      })
+    }
   },
 
   /**
