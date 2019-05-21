@@ -6,20 +6,23 @@
     <!-- 头部导航 -->
     <van-row custom-class="shop_header">
         <van-col custom-class="shop_header_img">
-            <image src="{{imgUrl}}" />
+            <image src="{{shopDetail.url}}" />
         </van-col>
         <van-col custom-class="shop_header_desc">
            <van-row custom-class="shop_header_desc_text">
-                公告：早上十一点不送餐，自己取早上十一点不送餐，自己取早上自己取早上自己取早上
+                公告：{{shopDetail.desc}}
            </van-row>
            <van-row custom-class="shop_header_desc_send">
-               起送 ￥20 配送 ￥0
+               起送 ￥{{shopDetail.start_price}} 配送 ￥{{shopDetail.send_price}}
            </van-row>  
            <van-row custom-class="shop_header_desc_tag">
-               <van-tag custom-class="shop_header_desc_tag_item" type="danger">满30减10</van-tag>
-               <van-tag custom-class="shop_header_desc_tag_item" type="danger">满30减10</van-tag>
-               <van-tag custom-class="shop_header_desc_tag_item" type="danger">满30减10</van-tag>
-               <van-tag custom-class="shop_header_desc_tag_item" type="danger">满30减10</van-tag>
+                <van-tag 
+                    custom-class="shop_header_desc_tag_item" 
+                    type="danger" 
+                    wx:for="{{shopDetail.special}}" 
+                    wx:key="{{index}}">
+                    满{{item.origin}}减{{item.discount}}
+                </van-tag>
            </van-row>    
         </van-col>
     </van-row>

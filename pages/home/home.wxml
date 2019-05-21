@@ -37,9 +37,9 @@
         autoplay="{{true}}"
         interval="{{interval}}"
         duration="{{duration}}">
-        <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+        <block wx:for="{{swiperUrls}}" wx:key="{{index}}">
           <swiper-item>
-            <image src="{{item}}" class="slide-image"/>
+            <image src="{{item.url}}" class="slide-image"/>
           </swiper-item>
         </block>
       </swiper>
@@ -48,10 +48,10 @@
     <van-row custom-class="home_content_type">
       <van-col bindtap="toTypeListPage" custom-class="home_content_type_item" span="6" wx:for="{{type}}" wx:key="{{index}}">
         <van-row custom-class="home_content_type_item_icon">
-          <van-icon name="https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640" />
+          <image src="{{item.url}}" />
         </van-row>
         <van-row custom-class="home_content_type_item_text">
-          <text>{{item.name}}</text>
+          {{item.name}}
         </van-row>
       </van-col>
     </van-row>
@@ -80,30 +80,27 @@
       <van-row custom-class="home_content_goods_type">
         <van-tabs active="{{ 0 }}" bind:change="onChange">
           <van-tab title="综合排序">
-            <van-row bind:tap="shopClick" data-name="KFC肯德基(hello world)" custom-class="home_content_goods_item" wx:for="{{goodsNum}}" wx:key="{{index}}">
+            <van-row bind:tap="shopClick" data-id="{{item.id}}" custom-class="home_content_goods_item" wx:for="{{shop}}" wx:key="{{index}}">
               <van-col custom-class="home_content_goods_item_img">
-                <image src="{{imgUrl}}" />
+                <image src="{{item.url}}" />
               </van-col>
               <van-col custom-class="home_content_goods_item_introduce">
                 <van-row custom-class="home_content_goods_item_introduce_title">
-                  <text>KFC肯德基(hello world)</text>
+                  <text>{{item.name}}</text>
                 </van-row>
                 <van-row custom-class="home_content_goods_item_introduce_sale">
                   <van-col span="16">
-                    <text>月售7778</text>
+                    <text>月售 {{item.sales}}</text>
                   </van-col>
                   <van-col span="8">
                     <van-tag round type="primary">雀送到楼</van-tag>
                   </van-col>
                 </van-row>
                 <van-row custom-class="home_content_goods_item_introduce_send">
-                  <text>起送 ￥20   配送 ￥2</text>
+                  <text>起送 ￥{{item.start_price}}   配送 ￥{{item.send_price}}</text>
                 </van-row>
-                <van-row custom-class="home_content_goods_item_introduce_tag">
-                  <van-tag plain type="danger">满30减5</van-tag>
-                  <van-tag plain type="danger">满30减5</van-tag>
-                  <van-tag plain type="danger">满30减5</van-tag>
-                  <van-tag plain type="danger">满30减5</van-tag>
+                <van-row wx:if="{{item.special && item.special.lenght != 0}}" custom-class="home_content_goods_item_introduce_tag">
+                  <van-tag plain type="danger" wx:for="{{item.special}}" wx:for-item="item2" wx:key="{{index}}">满{{item2.origin}}减{{item2.discount}}</van-tag>
                 </van-row>
               </van-col>
             </van-row>
