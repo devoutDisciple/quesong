@@ -31,6 +31,6 @@ App({
   },
   globalData: {
     userInfo: null, // 用户信息
-    code: "", // 用户code
+    openid: "", // 用户code
   }
 })

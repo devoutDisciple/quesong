@@ -1,6 +1,6 @@
 // pages/home/home.js
 const app = getApp();
-  
+const request = require("../../utils/request")
 Page({
 
   /**
@@ -158,51 +158,12 @@ Page({
     })
   },
   
-  // 按条件遍历
-  // circulationByCondition(citys, columns, name) {
-  //   let column = {
-  //     values: []
-  //   };
-  //   citys.map((item,index) => {
-  //     column.values.push(item.name);
-  //     if(name) {
-  //       if(item.children && item.children.length != 0 && item.name == name) {
-  //         this.circulation(item.children, columns, "")
-  //       }
-  //     } else {
-  //       if(item.children && item.children.length != 0 && index == 0) {
-  //         this.circulation(item.children, columns, "")
-  //       }
-  //     }
-      
-  //   })
-  //   this.circulation(item.children, columns)
-  //   return columns;
-  // },
-
-  // // 遍历城市
-  // circulation(citys, columns) {
-  //   let column = {
-  //     values: []
-  //   };
-  //   citys.map((item,index) => {
-  //     column.values.push(item.name);
-  //     if(item.children && item.children.length != 0 && index== 0) {
-  //       this.circulation(item.children, columns)
-  //     }
-  //   })
-  //   columns.unshift(column);
-  //   return columns;
-  // },
+ 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
-    // {
-    //   values: ['福州', '厦门', '莆田', '三明', '泉州'],
-    //   className: 'column2'
-    // },
+    // 设置地理位置
     let columns = [
       {
         values: ["上海"],
@@ -218,6 +179,12 @@ Page({
       },
     ];
     this.setData({columns, position: this.data.campus[0]});
+    // 获取轮播图
+    request.get({
+      url: "/swiper/all"
+    }).then(res => {
+      console.log(res, 999)
+    })
   },
 
   /**
@@ -237,13 +204,6 @@ Page({
         }
       })
     })
-    // 判断用户是否登录
-    console.log(app);
-    if(!app.globalData.userInfo) {
-      this.setData({
-        isLogin: false
-      })
-    }
   },
 
   /**
@@ -294,5 +254,42 @@ Page({
    */
   onShareAppMessage: function () {
     console.log(124)
-  }
+  },
+
+   // 按条件遍历
+  // circulationByCondition(citys, columns, name) {
+  //   let column = {
+  //     values: []
+  //   };
+  //   citys.map((item,index) => {
+  //     column.values.push(item.name);
+  //     if(name) {
+  //       if(item.children && item.children.length != 0 && item.name == name) {
+  //         this.circulation(item.children, columns, "")
+  //       }
+  //     } else {
+  //       if(item.children && item.children.length != 0 && index == 0) {
+  //         this.circulation(item.children, columns, "")
+  //       }
+  //     }
+      
+  //   })
+  //   this.circulation(item.children, columns)
+  //   return columns;
+  // },
+
+  // // 遍历城市
+  // circulation(citys, columns) {
+  //   let column = {
+  //     values: []
+  //   };
+  //   citys.map((item,index) => {
+  //     column.values.push(item.name);
+  //     if(item.children && item.children.length != 0 && index== 0) {
+  //       this.circulation(item.children, columns)
+  //     }
+  //   })
+  //   columns.unshift(column);
+  //   return columns;
+  // },
 })

@@ -1,10 +1,6 @@
 const app = getApp();
 let baseUrl = "http://localhost:3001";
-let config = {
-    appid: "wx14f72b631f4a5068",
-    AppSecret: "3206f5cb11411787c73baf6056a5c540",
-    grant_type: "authorization_code"
-};
+console.log(app.globalData, 999)
 module.exports = {
     get: (params = {}) => {
 		return new Promise((resolve, reject) => {
@@ -12,9 +8,7 @@ module.exports = {
 				method: 'GET',
 				url: baseUrl + params.url,
                 data: Object.assign({
-                    appid: config.appid,
-                    AppSecret: config.AppSecret,
-                    grant_type: config.grant_type
+                    openid: app.globalData.openid
                 }, params.data),
                 success: function(res) {
                     if(res.data && res.data.code == 200) resolve(res.data || {});
@@ -46,9 +40,7 @@ module.exports = {
 				method: 'POST',
 				url: baseUrl + url,
                 data: Object.assign({
-                    appid: config.appid,
-                    AppSecret: config.AppSecret,
-                    grant_type: config.grant_type
+                    openid: app.globalData.openid
                 }, params.data),
                 success: function(res) {
                     if(res.data && res.data.code == 200) resolve(res.data || {});

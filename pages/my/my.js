@@ -1,7 +1,8 @@
 //index.js
 //获取应用实例
 const app = getApp()
-const request = require("../../utils/request")
+const request = require("../../utils/request");
+const config = require("../../utils/config")
 Page({
   data: {
     motto: 'Hello World',
@@ -58,9 +59,13 @@ Page({
             code: code,
             name: e.detail.userInfo.nickName,
             avatarUrl: e.detail.userInfo.avatarUrl,
+            appid: config.appid,
+            AppSecret: config.AppSecret,
+            grant_type: config.grant_type,
           }
         }).then(res => {
           console.log(res, 11)
+          app.globalData.openid = res.data;
         })
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       }
