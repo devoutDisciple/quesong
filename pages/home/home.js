@@ -1,7 +1,6 @@
 // pages/home/home.js
-const app = getApp();
+// const app = getApp();
 const request = require("../../utils/request");
-const config = require("../../utils/config");
 Page({
 
 	/**
@@ -83,25 +82,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
 	onLoad: function () {
-		// 获取用户数据
-		wx.login({
-			success: res => {
-				let code = res.code || "";
-				request.get({
-					url: "/user/register",
-					data: {
-						code: code,
-						appid: config.appid,
-						AppSecret: config.AppSecret,
-						grant_type: config.grant_type,
-					}
-				}).then(res => {
-					console.log(res, 11);
-					app.globalData.openid = res.data;
-				});
-				// 发送 res.code 到后台换取 openId, sessionKey, unionId
-			}
-		});
 		// 获取轮播图数据
 		request.get({
 			url: "/swiper/all"

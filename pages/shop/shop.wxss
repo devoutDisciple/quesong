@@ -121,6 +121,11 @@
     height: 30px;
     line-height: 30px;
 }
+.shop_content_list_goods_item_introduce_send_discount{
+	font-size: 10px;
+	text-decoration: line-through;
+	color: #8b8b8b;
+}
 .shop_content_list_goods_item_introduce_send_icon{
     text-align: right;
 }
@@ -132,5 +137,63 @@
 /* 底部 */
 .shop_footer{
     height: 50px;
-    background: gray;
+	background: #4c4c4c;
+	position: relative;
 }
+.shop_footer_car{
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background: #3a3a3a;
+	border: 5px solid #4c4c4c;
+}
+.shop_footer_car image{
+	width: 50%;
+	height: 50%;
+	border-radius: 100%;
+	margin-left: 25%;
+	margin-top: 25%;
+}
+.shop_footer_total{
+	margin-left: 80px;
+	color: #fff;
+	font-size: 16px;
+	height: 26px;
+	line-height: 26px;
+	padding-right: 5px;
+	margin-top: 12px;
+	border-right: 2px solid #5a5a5a;
+	margin-right: 5px;
+	font-weight: 700;
+}
+.shop_footer_send{
+	height: 26px;
+	line-height: 26px;
+	color: #979797;
+	margin-top: 12px;
+}
+.shop_footer_accounts{
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 100px;
+	height: 50px;
+	background: #3a3a3a;
+	color: #8e8e8e;
+	line-height: 50px;
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+

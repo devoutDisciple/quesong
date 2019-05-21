@@ -42,6 +42,7 @@
             "process": true,
             "getApp": true,
             "Page": true,
-            "wx": true
+			"wx": true,
+			"App": true
 		}
 }

@@ -14,16 +14,16 @@
            </van-row>
            <van-row custom-class="shop_header_desc_send">
                起送 ￥{{shopDetail.start_price}} 配送 ￥{{shopDetail.send_price}}
-           </van-row>  
+           </van-row>
            <van-row custom-class="shop_header_desc_tag">
-                <van-tag 
-                    custom-class="shop_header_desc_tag_item" 
-                    type="danger" 
-                    wx:for="{{shopDetail.special}}" 
+                <van-tag
+                    custom-class="shop_header_desc_tag_item"
+                    type="danger"
+                    wx:for="{{shopDetail.special}}"
                     wx:key="{{index}}">
                     满{{item.origin}}减{{item.discount}}
                 </van-tag>
-           </van-row>    
+           </van-row>
         </van-col>
     </van-row>
     <van-row custom-class="shop_content">
@@ -34,39 +34,43 @@
                         <scroll-view class="shop_content_list_type_scroll" scroll-y>
                             <van-row
                                 bindtap="changeSelectIndex"
-                                custom-class="{{index == selectIndex ? 'shop_content_list_type_item_active' : 'shop_content_list_type_item'}}" 
-                                data-index="{{index}}"
-                                wx:for="{{typeNum}}" 
+                                custom-class="{{item == selectTypes ? 'shop_content_list_type_item_active' : 'shop_content_list_type_item'}}"
+                                data-type="{{item}}"
+                                wx:for="{{types}}"
                                 wx:key="{{index}}">
-                                水果
+                                {{item}}
                             </van-row>
                         </scroll-view>
                     </van-col>
                     <van-col custom-class="shop_content_list_goods">
                         <scroll-view class="shop_content_list_goods_scroll" scroll-y>
-                            <van-row custom-class="shop_content_list_goods_title">水果</van-row>
-                            <van-row 
-                                custom-class="shop_content_list_goods_item" 
-                                wx:for="{{typeNum}}" 
+                            <van-row custom-class="shop_content_list_goods_title">{{selectTypes}}</van-row>
+                            <van-row
+                                custom-class="shop_content_list_goods_item"
+								wx:if="{{item.type == selectTypes}}"
+                                wx:for="{{goodsList}}"
                                 wx:key="{{index}}">
                                 <van-col custom-class="shop_content_list_goods_item_img">
-                                    <image src="{{goodsUrl}}" />
+                                    <image src="{{item.url}}" />
                                 </van-col>
                                 <van-col custom-class="shop_content_list_goods_item_introduce">
                                     <van-row custom-class="shop_content_list_goods_item_introduce_title">
-                                        黄焖鸡米饭
+                                        {{item.name}}
                                     </van-row>
                                     <van-row custom-class="shop_content_list_goods_item_introduce_desc">
-                                        黄焖鸡米饭好吃不贵
+                                        {{item.desc}}
                                     </van-row>
                                     <van-row custom-class="shop_content_list_goods_item_introduce_sale">
-                                        月售7778
+                                        月售 {{item.sales}}
                                     </van-row>
                                     <van-row custom-class="shop_content_list_goods_item_introduce_send">
-                                        <van-col span="8" custom-class="shop_content_list_goods_item_introduce_send_price">
-                                            ￥20
+                                        <van-col span="5" custom-class="shop_content_list_goods_item_introduce_send_price">
+                                            ￥{{item.price}}
                                         </van-col>
-                                        <van-col span="8" offset="8" custom-class="shop_content_list_goods_item_introduce_send_icon">
+										<van-col span="5" wx:if="{{item.discount && item.discount != 0}}" custom-class="shop_content_list_goods_item_introduce_send_discount">
+                                            ￥{{item.discount}}
+                                        </van-col>
+                                        <van-col span="8" offset="6" custom-class="shop_content_list_goods_item_introduce_send_icon">
                                             <image src="/asserts/imgs/add.png" />
                                         </van-col>
                                     </van-row>
@@ -79,30 +83,15 @@
             <van-tab title="商家">内容 2</van-tab>
         </van-tabs>
     </van-row>
-    
+
 
    <!-- 底部菜单 -->
     <van-row custom-class="shop_footer">
-        <van-goods-action>
-            <van-goods-action-icon
-                icon="chat-o"
-                text="客服"
-                bind:click="onClickIcon"
-            />
-            <van-goods-action-icon
-                icon="cart-o"
-                text="购物车"
-                bind:click="onClickIcon"
-            />
-            <van-goods-action-button
-                text="加入购物车"
-                type="warning"
-                bind:click="onClickButton"
-            />
-            <van-goods-action-button
-                text="立即购买"
-                bind:click="onClickButton"
-            />
-        </van-goods-action>
+		<van-col custom-class="shop_footer_car">
+			<image src="/asserts/imgs/car.png" />
+		</van-col>
+		<van-col custom-class="shop_footer_total">￥{{totalCount}}元</van-col>
+		<van-col custom-class="shop_footer_send">另需配送费￥{{shopDetail.send_price}}元</van-col>
+		<van-col custom-class="shop_footer_accounts">￥{{shopDetail.start_price}}元起送</van-col>
     </van-row>
 </view>

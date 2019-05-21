@@ -7,18 +7,17 @@ Page({
    * 页面的初始数据
    */
 	data: {
+		types: [],// 商品类别
+		goodsList: [], // 商品列表
 		shopDetail: {},// 商店的详细信息
-		imgUrl: "https://quesong.top/attachment/images/2/2019/05/Cej3XdyZFkYp1pxqQYjfJMzS1jY3yZ.jpeg", // 商品图片
-		typeNum: 30,
-		goodsNum: 50,
-		selectIndex: 0,
-		goodsUrl: "https://quesong.top/attachment/images/2/2019/05/Z2r7yP1yzZp2dyp2X5Rx9EfpXxgz1X.jpeg"
+		selectTypes: "",// 当前所选类别
+		totalCount: 0, // 总共的价格
 	},
 	// 选择左侧菜单
 	changeSelectIndex(e) {
-		let index = e.currentTarget.dataset.index;
+		let type = e.currentTarget.dataset.type;
 		this.setData({
-			selectIndex: index
+			selectTypes: type
 		});
 	},
 	// 测试所用
@@ -31,7 +30,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
 	onLoad: function (options) {
-		let id = options.id;
+		let id = options.id || 1;
 		// 获取商店列表
 		request.get({
 			url: `/shop/getById?id=${id}`
@@ -47,6 +46,7 @@ Page({
 				});
 			});
 			data.special = tempData;
+			console.log(data, "shopDetail");
 			this.setData({
 				shopDetail: data || {}
 			});
@@ -60,13 +60,21 @@ Page({
 				backgroundColor: "#333"//背景颜色值
 			});
 		});
-		// 获取商店商品
 		// 获取商店列表
 		request.get({
 			url: `/goods/getByShopId?id=${id}`
 		}).then(res => {
 			console.log(res, 999);
-
+			let data = res.data, types = [];
+			data.map(item => {
+				types.includes(item.type) ? null : types.push(item.type);
+			});
+			console.log(data, "goodsList");
+			this.setData({
+				goodsList: data,
+				types: types,
+				selectTypes: types[0]
+			});
 		});
 	},
 
