@@ -10,6 +10,12 @@ Page({
 		hasUserInfo: false,
 		canIUse: wx.canIUse("button.open-type.getUserInfo")
 	},
+	// 点击新增收货地址
+	onClickAddAddress() {
+		wx.navigateTo({
+			url: "/pages/address/address"
+		});
+	},
 	//事件处理函数
 	onLoad: function () {
 		if (app.globalData.userInfo) {

@@ -1,0 +1,73 @@
+<view class="address">
+	<!--
+		<van-row></van-row>
+		<van-col>一点点奶茶</van-col>
+	-->
+	<form bindsubmit="formSubmit" bindreset="formReset">
+		<van-row custom-class="address_row">
+			<van-col custom-class="address_row_label">联系人：</van-col>
+			<van-col custom-class="address_row_input">
+				<input name="usernam" placeholder="姓名"/>
+			</van-col>
+		</van-row>
+		<van-row custom-class="address_row">
+			<van-radio-group value="{{sexRedio}}" bind:change="onChangeSexRadio">
+				<van-col custom-class="address_row_label_special">联系人：</van-col>
+				<van-col custom-class="address_row_radio_col" span="9">
+					<van-radio name="1" checked-color="#74f7cd">男同学</van-radio>
+				</van-col>
+				<van-col custom-class="address_row_radio_col" span="9">
+					<van-radio name="2" checked-color="#74f7cd">女同学</van-radio>
+				</van-col>
+			</van-radio-group>
+		</van-row>
+
+		<van-row custom-class="address_row">
+			<van-col custom-class="address_row_label">电话：</van-col>
+			<van-col custom-class="address_row_input">
+				<input name="phone" placeholder="请填写收货手机号码" type="number"/>
+			</van-col>
+		</van-row>
+		<van-row custom-class="address_row">
+			<van-col custom-class="address_row_label">备用联系电话：</van-col>
+			<van-col custom-class="address_row_input">
+				<input name="otherPhone" placeholder="请填写室友手机号码" type="number"/>
+			</van-col>
+		</van-row>
+		<van-row custom-class="address_row">
+			<van-radio-group value="{{campusRadio}}" bind:change="onChangeCampusRadio">
+				<van-col custom-class="address_row_label_special">联系人：</van-col>
+				<van-col custom-class="address_row_radio_col" span="9">
+					<van-radio name="1" checked-color="#74f7cd">校内</van-radio>
+				</van-col>
+				<van-col custom-class="address_row_radio_col" span="9">
+					<van-radio name="2" checked-color="#74f7cd">校外</van-radio>
+				</van-col>
+			</van-radio-group>
+		</van-row>
+		<van-row custom-class="address_row">
+			<van-col custom-class="address_row_label">学校：</van-col>
+			<van-col custom-class="address_row_input">
+				<input name="campus" placeholder="输入学校" />
+			</van-col>
+		</van-row>
+		<van-row custom-class="address_row">
+			<van-col custom-class="address_row_label">楼号：</van-col>
+			<van-col custom-class="address_row_input">
+				<input name="floor" placeholder="例：学生宿舍9号楼" />
+			</van-col>
+		</van-row>
+		<van-row custom-class="address_row">
+			<van-col custom-class="address_row_label">宿舍号：</van-col>
+			<van-col custom-class="address_row_input">
+				<input name="home" placeholder="例：520室" />
+			</van-col>
+		</van-row>
+		<van-row custom-class="address_row_btn">
+			<button form-type="submit">确定</button>
+		</van-row>
+	</form>
+	<!-- <van-row custom-class="address_header"></van-row>
+	<van-row custom-class="address_content"></van-row>
+	<van-row custom-class="address_footer"></van-row> -->
+</view>

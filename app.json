@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/accounts/accounts",
     "pages/home/home",
+    "pages/address/address",
+    "pages/accounts/accounts",
     "pages/shop/shop",
     "pages/my/my",
     "pages/order/order",
@@ -60,7 +61,9 @@
     "van-tag": "dist/tag/index",
     "van-goods-action": "dist/goods-action/index",
     "van-goods-action-icon": "dist/goods-action-icon/index",
-    "van-goods-action-button": "dist/goods-action-button/index"
+	"van-goods-action-button": "dist/goods-action-button/index",
+	"van-radio": "dist/radio/index",
+  	"van-radio-group": "dist/radio-group/index"
   },
   "sitemapLocation": "sitemap85.json"
 }

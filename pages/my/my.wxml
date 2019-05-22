@@ -12,7 +12,7 @@
             <van-col custom-class="my_list_item_icon" span="2">
                 <van-icon name="location-o" />
             </van-col>
-            <van-col span="20">
+            <van-col bind:tap="onClickAddAddress" span="20">
                 <text>我的收货地址</text>
             </van-col>
             <van-col span="2">

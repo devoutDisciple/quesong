@@ -1,18 +1,32 @@
-// pages/accounts/accounts.js
+// pages/address/address.js
 Page({
 
 	/**
    * 页面的初始数据
    */
 	data: {
-		imgUrl: "https://quesong.top/attachment/images/2/2019/05/RVr6ZRT6Rtzhola08ohAHb2bBXSaPb.jpeg",
-
+		sexRedio: "1", // 默认选中男同学
+		campusRadio: "1", // 默认是校内
 	},
-	// 点击新增收货地址
-	onClickAddAddress() {
-		wx.navigateTo({
-			url: "/pages/address/address"
+
+	// 改变男女同学按钮
+	onChangeSexRadio(e) {
+		console.log(e);
+		this.setData({
+			sexRedio: e.detail
 		});
+	},
+	// 改变校内还是校外
+	onChangeCampusRadio(e) {
+		console.log(e);
+		this.setData({
+			campusRadio: e.detail
+		});
+	},
+
+	// 表单提交
+	formSubmit(e) {
+		console.log(e, 11);
 	},
 
 	/**
@@ -22,7 +36,7 @@ Page({
 		console.log(options);
 		// 设置标题
 		wx.setNavigationBarTitle({
-			title: "提交订单"
+			title: "新增收货地址"
 		});
 		// 设置导航栏颜色
 		wx.setNavigationBarColor({
