@@ -1,7 +1,3 @@
-<!--pages/shop/shop.wxml-->
-<!-- <text>pages/shop/shop.wxml</text> -->
-<!--  <van-row custom-class="shop_header"></van-row> -->
-<!-- <van-col span="2"></van-col> -->
 <view class="shop">
     <!-- 头部导航 -->
     <van-row custom-class="shop_header">
@@ -69,10 +65,18 @@
                                         </van-col>
 										<van-col span="5" wx:if="{{item.discount && item.discount != 0}}" custom-class="shop_content_list_goods_item_introduce_send_discount">
                                             ￥{{item.discount}}
-                                        </van-col>
-                                        <van-col span="8" offset="6" custom-class="shop_content_list_goods_item_introduce_send_icon">
-                                            <image src="/asserts/imgs/add.png" />
-                                        </van-col>
+										</van-col>
+										<van-col span="14" custom-class="shop_content_list_goods_item_introduce_send_icon">
+											<van-col bindtap="subFood" data-food="{{item2}}" wx:if="{{item2.id == item.id}}" wx:for="{{orderList}}" wx:for-item="item2" wx:for-index="index2" wx:key="{{index2}}" custom-class="shop_content_list_goods_item_introduce_send_icon_sub">
+												<image src="/asserts/imgs/sub.png" />
+											</van-col>
+											<van-col wx:if="{{item2.id == item.id}}" wx:for="{{orderList}}" wx:for-item="item2" wx:for-index="index2" wx:key="{{index2}}" custom-class="shop_content_list_goods_item_introduce_send_icon_num">
+												{{item2.num}}
+											</van-col>
+											<van-col bindtap="addFood" data-food="{{item}}" custom-class="shop_content_list_goods_item_introduce_send_icon_add">
+												<image src="/asserts/imgs/add.png" />
+											</van-col>
+										</van-col>
                                     </van-row>
                                 </van-col>
                             </van-row>
@@ -87,11 +91,18 @@
 
    <!-- 底部菜单 -->
     <van-row custom-class="shop_footer">
-		<van-col custom-class="shop_footer_car">
+		<van-col wx:if="{{totalPrice == 0}}" custom-class="shop_footer_car">
 			<image src="/asserts/imgs/car.png" />
 		</van-col>
-		<van-col custom-class="shop_footer_total">￥{{totalCount}}元</van-col>
+		<van-col wx:if="{{totalPrice != 0}}" custom-class="shop_footer_car shop_footer_car_select">
+			<image src="/asserts/imgs/carSelect.png" />
+			<view class="shop_footer_car_select_badge">{{totalNum}}</view>
+		</van-col>
+		<van-col custom-class="shop_footer_total">￥{{totalPrice}}元</van-col>
 		<van-col custom-class="shop_footer_send">另需配送费￥{{shopDetail.send_price}}元</van-col>
-		<van-col custom-class="shop_footer_accounts">￥{{shopDetail.start_price}}元起送</van-col>
+		<!-- <van-col custom-class="shop_footer_accounts">￥{{shopDetail.start_price}}元起送</van-col> -->
+		<van-col wx:if="{{totalPrice == 0 }}" custom-class="shop_footer_accounts">￥{{shopDetail.start_price}}元起送</van-col>
+		<van-col wx:if="{{totalPrice < shopDetail.start_price && totalPrice != 0}}" custom-class="shop_footer_accounts">还差{{shopDetail.start_price - totalPrice}}元起送</van-col>
+		<van-col bindtap="settleAccounts" wx:if="{{totalPrice > shopDetail.start_price}}" custom-class="shop_footer_accounts shop_footer_accounts_active">去结算</van-col>
     </van-row>
 </view>

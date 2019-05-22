@@ -1,0 +1,66 @@
+<view class="accounts">
+	<!-- <van-row></van-row> -->
+	<scroll-view scroll-y class="accounts_content">
+		<van-row custom-class="accounts_content_address">
+			<van-row custom-class="accounts_content_address_add">
+				<view class="accounts_content_address_add_btn">
+					＋ 新增收货地址
+				</view>
+			</van-row>
+			<!-- <van-row custom-class="accounts_content_address_address"></van-row> -->
+		</van-row>
+		<van-row custom-class="accounts_content_section">
+			<van-row custom-class="accounts_content_shop_title">
+				<van-col><image src="{{imgUrl}}" /></van-col>
+				<van-col>一点点奶茶</van-col>
+				<!-- <van-col><van-icon name="arrow" /></van-col> -->
+			</van-row>
+			<van-row custom-class="accounts_content_shop_list">
+				<van-row custom-class="accounts_content_shop_list_item">
+					<van-col custom-class="accounts_content_shop_list_item_img"><image src="{{imgUrl}}" /></van-col>
+					<van-col custom-class="accounts_content_shop_list_item_intro">
+						<van-row custom-class="accounts_content_shop_list_item_intro_desc">
+							<van-col custom-class="accounts_content_shop_list_item_intro_desc_name">丑八怪丑橘500g</van-col>
+							<van-col custom-class="accounts_content_shop_list_item_intro_desc_price">￥476</van-col>
+						</van-row>
+						<van-row custom-class="accounts_content_shop_list_item_intro_num">x3</van-row>
+					</van-col>
+				</van-row>
+			</van-row>
+			<van-row custom-class="accounts_content_shop_message">
+				<van-row custom-class="accounts_content_shop_message_row">
+					餐盒费<van-col custom-class="accounts_content_shop_message_row_right">￥10</van-col>
+				</van-row>
+				<van-row custom-class="accounts_content_shop_message_row">
+					配送费<van-col custom-class="accounts_content_shop_message_row_right">￥10</van-col>
+				</van-row>
+				<van-row custom-class="accounts_content_shop_message_row accounts_content_shop_message_row_last">
+					<van-col custom-class="accounts_content_shop_message_row_left">减</van-col>
+					<van-col custom-class="accounts_content_shop_message_row_center">满减优惠</van-col>
+					<van-col custom-class="accounts_content_shop_message_row_right accounts_content_shop_message_row_right_sub">-￥10</van-col>
+				</van-row>
+			</van-row>
+			<van-row custom-class="accounts_content_shop_total">
+				<text class="accounts_content_shop_total_account">已优惠￥3</text>
+				<text class="accounts_content_shop_total_total">合计</text>
+				<text class="accounts_content_shop_total_money">￥67</text>
+			</van-row>
+		</van-row>
+		<van-row custom-class="accounts_content_other">
+			<van-row custom-class="accounts_content_other_row">
+				<text custom-class="accounts_content_other_row_left">备注</text>
+				<van-col custom-class="accounts_content_other_row_right">
+					<text class="accounts_content_other_row_right_text">口味,偏好等要求</text> >
+				</van-col>
+			</van-row>
+			<van-row custom-class="accounts_content_other_row">
+				支付方式<text class="accounts_content_other_row_right">在线支付</text>
+			</van-row>
+		</van-row>
+	</scroll-view>
+	<van-row custom-class="accounts_footer">
+		<van-col custom-class="accounts_footer_total">合计 ￥50</van-col>
+		<van-col custom-class="accounts_footer_discounts">已优惠￥3</van-col>
+		<van-col custom-class="accounts_footer_order">提交订单</van-col>
+	</van-row>
+</view>

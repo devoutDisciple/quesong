@@ -127,13 +127,34 @@
 	color: #8b8b8b;
 }
 .shop_content_list_goods_item_introduce_send_icon{
-    text-align: right;
+	position: relative;
 }
 .shop_content_list_goods_item_introduce_send_icon image{
     width: 25px;
     height: 25px;
-    border-radius: 100%;
+	border-radius: 100%;
 }
+.shop_content_list_goods_item_introduce_send_icon_sub{
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	right: 55px;
+	top: 0;
+}
+.shop_content_list_goods_item_introduce_send_icon_num{
+	position: absolute;
+	right: 35px;
+	top: -2px;
+	font-size: 14px;
+}
+.shop_content_list_goods_item_introduce_send_icon_add{
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	right: 0;
+	top: 0;
+}
+
 /* 底部 */
 .shop_footer{
     height: 50px;
@@ -149,6 +170,22 @@
 	border-radius: 50%;
 	background: #3a3a3a;
 	border: 5px solid #4c4c4c;
+}
+.shop_footer_car_select{
+	background: #93f0d5;
+}
+.shop_footer_car_select_badge{
+	position: absolute;
+	background: red;
+	width: 20px;
+	text-align: center;
+	line-height: 20px;
+	height: 20px;
+	border-radius: 100%;
+	color: #fff;
+	font-size: 14px;
+	right: -12px;
+	top: -5px;
 }
 .shop_footer_car image{
 	width: 50%;
@@ -185,6 +222,10 @@
 	color: #8e8e8e;
 	line-height: 50px;
 	text-align: center;
+}
+.shop_footer_accounts_active{
+	background: #9df2d1;
+	color: #fff;
 }
 
 

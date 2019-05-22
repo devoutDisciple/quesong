@@ -11,7 +11,9 @@ Page({
 		goodsList: [], // 商品列表
 		shopDetail: {},// 商店的详细信息
 		selectTypes: "",// 当前所选类别
-		totalCount: 0, // 总共的价格
+		orderList: [], // 订单列表
+		totalPrice: 0, // 订单总价
+		totalNum: 0, //订单总数量
 	},
 	// 选择左侧菜单
 	changeSelectIndex(e) {
@@ -20,17 +22,68 @@ Page({
 			selectTypes: type
 		});
 	},
-	// 测试所用
-	onClickIcon() {
-		wx.switchTab({
-			url: "/pages/home/home"
+	// 添加食物
+	addFood(e) {
+		let orderList = this.data.orderList;
+		let food = e.currentTarget.dataset.food;
+		let isFlag = false;
+		orderList.map(item => {
+			item.id == food.id ? isFlag = true : null;
+		});
+		if(isFlag) {
+			orderList.map(item => {
+				item.id == food.id ? item.num++ : null;
+			});
+		} else {
+			food.num = 1;
+			orderList.push(food);
+		}
+		console.log(orderList, "1111");
+		this.setData({
+			orderList: orderList
+		}, () => {
+			this.countPrice();
+		});
+
+	},
+	// 减少食物
+	subFood(e) {
+		let orderList = this.data.orderList;
+		let food = e.currentTarget.dataset.food;
+		orderList.map((item, index) => {
+			item.id == food.id ? item.num-- : null;
+			if(item.num == 0) delete orderList[index];
+		});
+		this.setData({
+			orderList: orderList
+		}, () => {
+			this.countPrice();
+		});
+	},
+	// 计算价格
+	countPrice() {
+		let orderList = this.data.orderList, totalPrice = 0, totalNum = 0;
+		orderList.map(item => {
+			totalPrice = totalPrice + item.price * item.num;
+			totalNum = totalNum + item.num;
+		});
+		console.log(totalPrice, "总价格");
+		this.setData({
+			totalPrice, totalNum
+		});
+	},
+	// 跳转到结账页面
+	settleAccounts() {
+		wx.navigateTo({
+			url: "/pages/accounts/accounts"
 		});
 	},
 	/**
    * 生命周期函数--监听页面加载
    */
 	onLoad: function (options) {
-		let id = options.id || 1;
+		console.log(11111);
+		let id = options.id;
 		// 获取商店列表
 		request.get({
 			url: `/shop/getById?id=${id}`
@@ -64,7 +117,6 @@ Page({
 		request.get({
 			url: `/goods/getByShopId?id=${id}`
 		}).then(res => {
-			console.log(res, 999);
 			let data = res.data, types = [];
 			data.map(item => {
 				types.includes(item.type) ? null : types.push(item.type);
@@ -89,6 +141,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
 	onShow: function () {
+
 	},
 
 	/**
