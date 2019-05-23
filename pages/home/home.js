@@ -1,6 +1,9 @@
 // pages/home/home.js
 // const app = getApp();
 const request = require("../../utils/request");
+// const app = getApp();
+// const config = require("../../utils/config");
+
 Page({
 
 	/**
@@ -10,7 +13,6 @@ Page({
 		positionDialogVisible: false, //位置弹框的开关
 		interval: 5000, // 轮播图间隔时间
 		duration: 1000, // 轮播图延迟时间
-		goodsNum: 50, // 商品数量
 		freeGoodsNum: 10,// 免费商品数量
 		imgUrl: "https://quesong.top/attachment/images/2/2019/05/Cej3XdyZFkYp1pxqQYjfJMzS1jY3yZ.jpeg", // 商品图片
 		// 轮播图url
@@ -82,6 +84,64 @@ Page({
    * 生命周期函数--监听页面加载
    */
 	onLoad: function () {
+		// 登录
+		// wx.login({
+		// 	success: data => {
+		// 		wx.request({
+		// 			method: "GET",
+		// 			url: config.baseUrl + "/user/register",
+		// 			data: Object.assign({
+		// 				code: data.code,
+		// 				appid: config.appid,
+		// 				AppSecret: config.AppSecret,
+		// 				grant_type: config.grant_type,
+		// 			}),
+		// 			success: res => {
+		// 				if(res.data && res.data.code == 200) app.globalData.openid = res.data;
+		// 				else{
+		// 					wx.showModal({
+		// 						title: "提示",
+		// 						content: "网络异常",
+		// 						showCancel: false
+		// 					});
+		// 				}
+		// 			},
+		// 			fail: err => {
+		// 				console.log(err, 80);
+		// 				wx.showModal({
+		// 					title: "提示",
+		// 					content: "网络异常",
+		// 					showCancel: false
+		// 				});
+		// 			}
+		// 		});
+		// 	},
+		// 	fail: res => {
+		// 		console.log(res, "loginFail");
+		// 	}
+		// });
+		// // 获取用户信息
+		// wx.getSetting({
+		// 	success: res => {
+		// 		if (res.authSetting["scope.userInfo"]) {
+		// 			// 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+		// 			wx.getUserInfo({
+		// 				success: res => {
+		// 					// 可以将 res 发送给后台解码出 unionId
+		// 					app.globalData.userInfo = res.userInfo;
+		// 					// // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+		// 					// // 所以此处加入 callback 以防止这种情况
+		// 					// if (app.userInfoReadyCallback) {
+		// 					// 	app.userInfoReadyCallback(res);
+		// 					// }
+		// 				}
+		// 			});
+		// 		}
+		// 	},
+		// 	fail: res => {
+		// 		console.log(res, "wx.getSetting");
+		// 	}
+		// });
 		// 获取轮播图数据
 		request.get({
 			url: "/swiper/all"

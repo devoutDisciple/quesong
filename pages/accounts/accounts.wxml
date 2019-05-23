@@ -11,19 +11,19 @@
 		</van-row>
 		<van-row custom-class="accounts_content_section">
 			<van-row custom-class="accounts_content_shop_title">
-				<van-col><image src="{{imgUrl}}" /></van-col>
-				<van-col>一点点奶茶</van-col>
+				<van-col><image src="{{shopDetail.url}}" /></van-col>
+				<van-col>{{shopDetail.name}}</van-col>
 				<!-- <van-col><van-icon name="arrow" /></van-col> -->
 			</van-row>
 			<van-row custom-class="accounts_content_shop_list">
-				<van-row custom-class="accounts_content_shop_list_item">
-					<van-col custom-class="accounts_content_shop_list_item_img"><image src="{{imgUrl}}" /></van-col>
+				<van-row custom-class="accounts_content_shop_list_item" wx:for="{{orderList}}" wx:key="{{index}}">
+					<van-col custom-class="accounts_content_shop_list_item_img"><image src="{{item.url}}" /></van-col>
 					<van-col custom-class="accounts_content_shop_list_item_intro">
 						<van-row custom-class="accounts_content_shop_list_item_intro_desc">
-							<van-col custom-class="accounts_content_shop_list_item_intro_desc_name">丑八怪丑橘500g</van-col>
-							<van-col custom-class="accounts_content_shop_list_item_intro_desc_price">￥476</van-col>
+							<van-col custom-class="accounts_content_shop_list_item_intro_desc_name">{{item.name}}</van-col>
+							<van-col custom-class="accounts_content_shop_list_item_intro_desc_price">￥{{item.num * item.price}}</van-col>
 						</van-row>
-						<van-row custom-class="accounts_content_shop_list_item_intro_num">x3</van-row>
+						<van-row custom-class="accounts_content_shop_list_item_intro_num">x{{item.num}}</van-row>
 					</van-col>
 				</van-row>
 			</van-row>
@@ -32,18 +32,18 @@
 					餐盒费<van-col custom-class="accounts_content_shop_message_row_right">￥10</van-col>
 				</van-row>
 				<van-row custom-class="accounts_content_shop_message_row">
-					配送费<van-col custom-class="accounts_content_shop_message_row_right">￥10</van-col>
+					配送费<van-col custom-class="accounts_content_shop_message_row_right">￥{{shopDetail.send_price}}</van-col>
 				</van-row>
 				<van-row custom-class="accounts_content_shop_message_row accounts_content_shop_message_row_last">
 					<van-col custom-class="accounts_content_shop_message_row_left">减</van-col>
 					<van-col custom-class="accounts_content_shop_message_row_center">满减优惠</van-col>
-					<van-col custom-class="accounts_content_shop_message_row_right accounts_content_shop_message_row_right_sub">-￥10</van-col>
+					<van-col custom-class="accounts_content_shop_message_row_right accounts_content_shop_message_row_right_sub">-￥{{discountPrice}}</van-col>
 				</van-row>
 			</van-row>
 			<van-row custom-class="accounts_content_shop_total">
-				<text class="accounts_content_shop_total_account">已优惠￥3</text>
+				<text class="accounts_content_shop_total_account">已优惠￥{{discountPrice}}</text>
 				<text class="accounts_content_shop_total_total">合计</text>
-				<text class="accounts_content_shop_total_money">￥67</text>
+				<text class="accounts_content_shop_total_money">￥{{totalPrice}}</text>
 			</van-row>
 		</van-row>
 		<van-row custom-class="accounts_content_other">
@@ -59,8 +59,8 @@
 		</van-row>
 	</scroll-view>
 	<van-row custom-class="accounts_footer">
-		<van-col custom-class="accounts_footer_total">合计 ￥50</van-col>
-		<van-col custom-class="accounts_footer_discounts">已优惠￥3</van-col>
-		<van-col custom-class="accounts_footer_order">提交订单</van-col>
+		<van-col custom-class="accounts_footer_total">合计 ￥{{totalPrice}}</van-col>
+		<van-col custom-class="accounts_footer_discounts">已优惠￥{{discountPrice}}</van-col>
+		<van-col bind:tap="submitOrder" custom-class="accounts_footer_order">提交订单</van-col>
 	</van-row>
 </view>

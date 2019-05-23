@@ -34,7 +34,12 @@ App({
 						});
 					}
 				});
+			},
+			fail: res => {
+				console.log(res, "loginFail");
+				this.globalData.showUserLoginDialog = true;
 			}
+
 		});
 		// 获取用户信息
 		wx.getSetting({
@@ -59,5 +64,6 @@ App({
 	globalData: {
 		userInfo: null, // 用户信息
 		openid: "", // 用户code
+		showUserLoginDialog: false
 	}
 });

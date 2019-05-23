@@ -103,6 +103,6 @@
 		<!-- <van-col custom-class="shop_footer_accounts">￥{{shopDetail.start_price}}元起送</van-col> -->
 		<van-col wx:if="{{totalPrice == 0 }}" custom-class="shop_footer_accounts">￥{{shopDetail.start_price}}元起送</van-col>
 		<van-col wx:if="{{totalPrice < shopDetail.start_price && totalPrice != 0}}" custom-class="shop_footer_accounts">还差{{shopDetail.start_price - totalPrice}}元起送</van-col>
-		<van-col bindtap="settleAccounts" wx:if="{{totalPrice > shopDetail.start_price}}" custom-class="shop_footer_accounts shop_footer_accounts_active">去结算</van-col>
+		<van-col bindtap="settleAccounts" wx:if="{{totalPrice >= shopDetail.start_price}}" custom-class="shop_footer_accounts shop_footer_accounts_active">去结算</van-col>
     </van-row>
 </view>

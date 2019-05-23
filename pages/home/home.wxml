@@ -26,7 +26,7 @@
     </van-row>
   </van-row>
   <!-- <van-row></van-row> -->
-  
+
   <scroll-view
     scroll-y
     class="home_content">
@@ -62,7 +62,7 @@
       <scroll-view scroll-x class="home_content_free_content">
         <view class="home_content_free_item" wx:for="{{freeGoodsNum}}" wx:key="{{index}}">
           <van-row class="home_content_free_item_img">
-            <image src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2461663585,1009763712&fm=26&gp=0.jpg" />
+            <image src="{{imgUrl}}" />
           </van-row>
           <van-row class="home_content_free_item_desc">
             <text>老北京火锅老北京火锅老北京火锅老北京火锅老北京火锅</text>
@@ -111,15 +111,22 @@
     </van-row>
   </scroll-view>
 
-  <van-action-sheet
-    show="{{ positionDialogVisible }}"
-    bind:close="onShowPositionDialog">
-    <van-picker 
-      show-toolbar="{{true}}"
-      columns="{{ columns }}" 
-      title=""
-      bind:change="onChangePosition"
-      bind:cancel="onCancelPosition"
-      bind:confirm="onConfirmPosition" />
+	<!-- 获取用户信息弹框 -->
+	<!-- <van-action-sheet
+		show="{{ app.globalData.showUserLoginDialog }}">
+		获取用户信息
+	</van-action-sheet> -->
+	<!-- 学校位置弹框 -->
+  	<van-action-sheet
+    	show="{{ positionDialogVisible }}"
+    	bind:close="onShowPositionDialog">
+    	<van-picker
+      		show-toolbar="{{true}}"
+      		columns="{{ columns }}"
+      		title=""
+      		bind:change="onChangePosition"
+      		bind:cancel="onCancelPosition"
+	  		bind:confirm="onConfirmPosition" />
   </van-action-sheet>
+  <!--  -->
 </view>

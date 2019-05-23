@@ -45,27 +45,47 @@
 				</van-col>
 			</van-radio-group>
 		</van-row>
-		<van-row custom-class="address_row">
-			<van-col custom-class="address_row_label">学校：</van-col>
-			<van-col custom-class="address_row_input">
-				<input name="campus" placeholder="输入学校" />
-			</van-col>
+		<van-row wx:if="{{campusRadio == 1}}">
+			<van-row custom-class="address_row">
+				<van-col custom-class="address_row_label">学校：</van-col>
+				<van-col custom-class="address_row_input">
+					<input name="campus" placeholder="输入学校" />
+				</van-col>
+			</van-row>
+			<van-row custom-class="address_row">
+				<van-col custom-class="address_row_label">楼号：</van-col>
+				<van-col custom-class="address_row_input">
+					<input name="floor" placeholder="例：学生宿舍9号楼" />
+				</van-col>
+			</van-row>
+			<van-row custom-class="address_row">
+				<van-col custom-class="address_row_label">宿舍号：</van-col>
+				<van-col custom-class="address_row_input">
+					<input name="home" placeholder="例：520室" />
+				</van-col>
+			</van-row>
+			<van-row custom-class="address_row_btn">
+				<button form-type="submit">确定</button>
+			</van-row>
 		</van-row>
-		<van-row custom-class="address_row">
-			<van-col custom-class="address_row_label">楼号：</van-col>
-			<van-col custom-class="address_row_input">
-				<input name="floor" placeholder="例：学生宿舍9号楼" />
-			</van-col>
+		<van-row wx:if="{{campusRadio == 2}}">
+			<van-row custom-class="address_row">
+				<van-col custom-class="address_row_label">地址：</van-col>
+				<van-col custom-class="address_row_input">
+					<input name="address" placeholder="请输入收货地址" />
+				</van-col>
+			</van-row>
+			<van-row custom-class="address_row">
+				<van-col custom-class="address_row_label">门牌号：</van-col>
+				<van-col custom-class="address_row_input">
+					<input name="table" placeholder="例：9号楼520室" />
+				</van-col>
+			</van-row>
+			<van-row custom-class="address_row_btn">
+				<button form-type="submit">确定</button>
+			</van-row>
 		</van-row>
-		<van-row custom-class="address_row">
-			<van-col custom-class="address_row_label">宿舍号：</van-col>
-			<van-col custom-class="address_row_input">
-				<input name="home" placeholder="例：520室" />
-			</van-col>
-		</van-row>
-		<van-row custom-class="address_row_btn">
-			<button form-type="submit">确定</button>
-		</van-row>
+
 	</form>
 	<!-- <van-row custom-class="address_header"></van-row>
 	<van-row custom-class="address_content"></van-row>

@@ -13,6 +13,7 @@ Page({
 		selectTypes: "",// 当前所选类别
 		orderList: [], // 订单列表
 		totalPrice: 0, // 订单总价
+		discountPrice: 0, // 已经优惠价格
 		totalNum: 0, //订单总数量
 	},
 	// 选择左侧菜单
@@ -38,7 +39,6 @@ Page({
 			food.num = 1;
 			orderList.push(food);
 		}
-		console.log(orderList, "1111");
 		this.setData({
 			orderList: orderList
 		}, () => {
@@ -63,13 +63,27 @@ Page({
 	// 计算价格
 	countPrice() {
 		let orderList = this.data.orderList, totalPrice = 0, totalNum = 0;
+		// 计算商品总价格
 		orderList.map(item => {
 			totalPrice = totalPrice + item.price * item.num;
 			totalNum = totalNum + item.num;
 		});
-		console.log(totalPrice, "总价格");
+		// 计算满减
+		let special = this.data.shopDetail.special;
+		let finalPrice = totalPrice, originPrice = 0, discountPrice = 0;
+		if(special && special.length > 0) {
+			special.map(item => {
+				if(Number(finalPrice) >= Number(item.origin) && Number(originPrice) <= Number(item.origin)) {
+					originPrice = item.origin;
+					discountPrice = item.discount;
+					finalPrice = totalPrice - item.discount;
+				}
+			});
+		}
 		this.setData({
-			totalPrice, totalNum
+			totalPrice: finalPrice,
+			discountPrice,
+			totalNum
 		});
 	},
 	// 跳转到结账页面
@@ -82,7 +96,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
 	onLoad: function (options) {
-		console.log(11111);
 		let id = options.id;
 		// 获取商店列表
 		request.get({
@@ -99,7 +112,6 @@ Page({
 				});
 			});
 			data.special = tempData;
-			console.log(data, "shopDetail");
 			this.setData({
 				shopDetail: data || {}
 			});
@@ -121,7 +133,6 @@ Page({
 			data.map(item => {
 				types.includes(item.type) ? null : types.push(item.type);
 			});
-			console.log(data, "goodsList");
 			this.setData({
 				goodsList: data,
 				types: types,
