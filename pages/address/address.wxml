@@ -7,7 +7,7 @@
 		<van-row custom-class="address_row">
 			<van-col custom-class="address_row_label">联系人：</van-col>
 			<van-col custom-class="address_row_input">
-				<input name="usernam" placeholder="姓名"/>
+				<input name="username" placeholder="姓名"/>
 			</van-col>
 		</van-row>
 		<van-row custom-class="address_row">
@@ -49,13 +49,13 @@
 			<van-row custom-class="address_row">
 				<van-col custom-class="address_row_label">学校：</van-col>
 				<van-col custom-class="address_row_input">
-					<input name="campus" placeholder="输入学校" />
+					<input value="{{position}}" bind:tap="onShowPositionDialog" disabled name="campus" placeholder="请选择学校" />
 				</van-col>
 			</van-row>
 			<van-row custom-class="address_row">
 				<van-col custom-class="address_row_label">楼号：</van-col>
 				<van-col custom-class="address_row_input">
-					<input name="floor" placeholder="例：学生宿舍9号楼" />
+					<input value="{{floor}}" bind:tap="onShowFloorDialog" disabled name="campus" name="floor" placeholder="例：学生宿舍9号楼" />
 				</van-col>
 			</van-row>
 			<van-row custom-class="address_row">
@@ -87,7 +87,28 @@
 		</van-row>
 
 	</form>
-	<!-- <van-row custom-class="address_header"></van-row>
-	<van-row custom-class="address_content"></van-row>
-	<van-row custom-class="address_footer"></van-row> -->
+	<!-- 学校位置弹框 -->
+  	<van-action-sheet
+    	show="{{ positionDialogVisible }}"
+    	bind:close="onShowPositionDialog">
+    	<van-picker
+      		show-toolbar="{{true}}"
+      		columns="{{ positionColumns }}"
+      		title=""
+      		bind:change="onChangePosition"
+      		bind:cancel="onShowPositionDialog"
+	  		bind:confirm="onConfirmPosition" />
+  </van-action-sheet>
+  <!-- 宿舍号 -->
+  <van-action-sheet
+    	show="{{ floorDialogVisible }}"
+    	bind:close="onShowFloorDialog">
+    	<van-picker
+      		show-toolbar="{{true}}"
+      		columns="{{ floorColumns }}"
+      		title=""
+      		bind:change="onChangeFloor"
+      		bind:cancel="onShowFloorDialog"
+	  		bind:confirm="onConfirmFloor" />
+  </van-action-sheet>
 </view>

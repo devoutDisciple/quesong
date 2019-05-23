@@ -9,9 +9,12 @@ module.exports = {
 				url: baseUrl + params.url,
 				data: Object.assign({
 					openid: app.globalData.openid
-				}, params.data),
+				}, params),
 				success: function(res) {
-					if(res.data && res.data.code == 200) resolve(res.data || {});
+					if(res.data && res.data.code == 200) {
+						console.log(res, 907);
+						resolve(res.data || {});
+					}
 					else{
 						wx.showModal({
 							title: "提示",
@@ -36,12 +39,13 @@ module.exports = {
 	},
 	post: (params = {}) => {
 		return new Promise((resolve, reject) => {
+			console.log(baseUrl + params.url,111);
 			wx.request({
 				method: "POST",
 				url: baseUrl + params.url,
 				data: Object.assign({
 					openid: app.globalData.openid
-				}, params.data),
+				}, params),
 				success: function(res) {
 					if(res.data && res.data.code == 200) resolve(res.data || {});
 					else{

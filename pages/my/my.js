@@ -59,17 +59,15 @@ Page({
 				let code = res.code || "";
 				request.get({
 					url: "/user/register",
-					data: {
-						code: code,
-						name: e.detail.userInfo.nickName,
-						avatarUrl: e.detail.userInfo.avatarUrl,
-						appid: config.appid,
-						AppSecret: config.AppSecret,
-						grant_type: config.grant_type,
-					}
+					code: code,
+					name: e.detail.userInfo.nickName,
+					avatarUrl: e.detail.userInfo.avatarUrl,
+					appid: config.appid,
+					AppSecret: config.AppSecret,
+					grant_type: config.grant_type,
 				}).then(res => {
 					console.log(res, 11);
-					app.globalData.openid = res.data;
+					app.globalData.openid = res.data.data;
 				});
 				// 发送 res.code 到后台换取 openId, sessionKey, unionId
 			}

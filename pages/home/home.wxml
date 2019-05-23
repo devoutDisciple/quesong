@@ -125,7 +125,7 @@
       		columns="{{ columns }}"
       		title=""
       		bind:change="onChangePosition"
-      		bind:cancel="onCancelPosition"
+      		bind:cancel="onShowPositionDialog"
 	  		bind:confirm="onConfirmPosition" />
   </van-action-sheet>
   <!--  -->

@@ -6,6 +6,7 @@ App({
 		// 登录
 		wx.login({
 			success: data => {
+				console.log(3123);
 				wx.request({
 					method: "GET",
 					url: config.baseUrl + "/user/register",
@@ -16,7 +17,10 @@ App({
 						grant_type: config.grant_type,
 					}),
 					success: res => {
-						if(res.data && res.data.code == 200) this.globalData.openid = res.data;
+						if(res.data && res.data.code == 200) {
+							console.log(res.data, 390);
+							this.globalData.openid = res.data.data.data;
+						}
 						else{
 							wx.showModal({
 								title: "提示",
