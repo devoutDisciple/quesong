@@ -47,6 +47,19 @@ Page({
 			});
 		}
 	},
+	// 我的客服
+	onClickMyService() {
+		wx.navigateTo({
+			url: "/pages/custom/custom"
+		});
+	},
+	// 点击意见与反馈
+	onClickOption() {
+		wx.navigateTo({
+			url: "/pages/option/option"
+		});
+	},
+	// 登录按钮点击的时候
 	getUserInfo: function(e) {
 		app.globalData.userInfo = e.detail.userInfo;
 		this.setData({

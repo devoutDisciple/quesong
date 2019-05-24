@@ -19,7 +19,7 @@
                 <van-icon name="arrow" />
             </van-col>
         </van-row>
-        <van-row custom-class="my_list_item">
+        <van-row custom-class="my_list_item" bindtap="onClickMyService">
             <van-col custom-class="my_list_item_icon" span="2">
                 <van-icon name="service-o" />
             </van-col>
@@ -30,7 +30,7 @@
                 <van-icon name="arrow" />
             </van-col>
         </van-row>
-        <van-row custom-class="my_list_item my_list_item_last">
+        <van-row custom-class="my_list_item my_list_item_last"  bindtap="onClickOption">
             <van-col custom-class="my_list_item_icon" span="2">
                 <van-icon name="location-o" />
             </van-col>

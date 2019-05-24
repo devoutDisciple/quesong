@@ -1,14 +1,16 @@
 {
   "pages": [
+    "pages/my/my",
     "pages/home/home",
     "pages/address/address",
     "pages/accounts/accounts",
+    "pages/custom/custom",
     "pages/shop/shop",
-    "pages/my/my",
     "pages/order/order",
     "pages/type/type",
     "pages/index/index",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/option/option"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -61,9 +63,9 @@
     "van-tag": "dist/tag/index",
     "van-goods-action": "dist/goods-action/index",
     "van-goods-action-icon": "dist/goods-action-icon/index",
-	"van-goods-action-button": "dist/goods-action-button/index",
-	"van-radio": "dist/radio/index",
-  	"van-radio-group": "dist/radio-group/index"
+    "van-goods-action-button": "dist/goods-action-button/index",
+    "van-radio": "dist/radio/index",
+    "van-radio-group": "dist/radio-group/index"
   },
   "sitemapLocation": "sitemap85.json"
 }
