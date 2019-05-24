@@ -8,8 +8,8 @@ module.exports = {
 				method: "GET",
 				url: baseUrl + params.url,
 				data: Object.assign({
-					openid: app.globalData.openid
-				}, params),
+					openid: app.globalData.openid || "oah4447vOWQegN1z544JfDtqbZuY"
+				}, params.data),
 				success: function(res) {
 					if(res.data && res.data.code == 200) {
 						console.log(res, 907);
@@ -45,7 +45,7 @@ module.exports = {
 				url: baseUrl + params.url,
 				data: Object.assign({
 					openid: app.globalData.openid
-				}, params),
+				}, params.data),
 				success: function(res) {
 					if(res.data && res.data.code == 200) resolve(res.data || {});
 					else{

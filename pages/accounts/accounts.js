@@ -1,3 +1,5 @@
+import request from "../../utils/request";
+
 // pages/accounts/accounts.js
 Page({
 
@@ -29,6 +31,31 @@ Page({
 		// 	success(res) { },
 		// 	fail(res) { }
 		// });
+		console.log(this.data.shopDetail, this.data.orderList, this.data.totalPrice, this.data.discountPrice);
+		let shopDetail = {
+			id: this.data.shopDetail.id,
+			name: this.data.shopDetail.name,
+			address: this.data.shopDetail.address,
+			url: this.data.shopDetail.url
+		};
+		request.post({
+			url: "/order/add",
+			data: {
+				shop_detail: JSON.stringify(shopDetail),
+				order_list: JSON.stringify(this.data.orderList),
+				total_price: this.data.totalPrice, // 总价
+				discount_price: this.data.discountPrice, // 优惠价格
+				order_time: (new Date()).getTime(),
+				status: 1
+			}
+		}).then(res => {
+			console.log(res);
+			// 支付订单跳转到订单页面
+			wx.switchTab({
+				url: "/pages/order/order"
+			});
+		});
+
 	},
 
 	/**

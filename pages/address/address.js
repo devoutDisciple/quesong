@@ -123,8 +123,10 @@ Page({
 				table: value.table,
 			};
 		}
-		params.url = "/user/addAddress";
-		request.post(params).then(res => {
+		request.post({
+			url: "/user/addAddress",
+			data: params
+		}).then(res => {
 			console.log(res);
 		});
 	},
