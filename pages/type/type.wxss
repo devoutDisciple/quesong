@@ -15,6 +15,13 @@
     height: calc(100vh - 104px);
     width: 100%;
 }
+.type_content_empty{
+	height: calc(100vh - 104px);
+	width: 100%;
+	line-height: calc(100vh - 104px);
+	text-align: center;
+	color: #e8e8e8;
+}
 .home_content_goods_item{
     height: 100px;
 }

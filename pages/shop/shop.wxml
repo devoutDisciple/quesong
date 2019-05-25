@@ -84,7 +84,9 @@
                     </van-col>
                 </van-row>
             </van-tab>
-            <van-tab title="商家">内容 2</van-tab>
+            <van-tab title="商家">
+				暂无描述信息
+			</van-tab>
         </van-tabs>
     </van-row>
 

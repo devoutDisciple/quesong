@@ -3,16 +3,17 @@ let config = require("./config");
 let baseUrl = config.baseUrl;
 module.exports = {
 	get: (params = {}) => {
+		let position = wx.getStorageSync("campus");
 		return new Promise((resolve, reject) => {
 			wx.request({
 				method: "GET",
 				url: baseUrl + params.url,
 				data: Object.assign({
-					openid: app.globalData.openid || "oah4447vOWQegN1z544JfDtqbZuY"
+					openid: app.globalData.openid || "oah4447vOWQegN1z544JfDtqbZuY",
+					position: position
 				}, params.data),
 				success: function(res) {
 					if(res.data && res.data.code == 200) {
-						console.log(res, 907);
 						resolve(res.data || {});
 					}
 					else{
@@ -25,7 +26,6 @@ module.exports = {
 					}
 				},
 				fail: function(err) {
-					console.log(err, 80);
 					console.info("服务端错误: ", err);
 					wx.showModal({
 						title: "提示",
@@ -38,13 +38,14 @@ module.exports = {
 		});
 	},
 	post: (params = {}) => {
+		let position = wx.getStorageSync("campus");
 		return new Promise((resolve, reject) => {
-			console.log(baseUrl + params.url,111);
 			wx.request({
 				method: "POST",
 				url: baseUrl + params.url,
 				data: Object.assign({
-					openid: app.globalData.openid
+					openid: app.globalData.openid || "oah4447vOWQegN1z544JfDtqbZuY",
+					position: position
 				}, params.data),
 				success: function(res) {
 					if(res.data && res.data.code == 200) resolve(res.data || {});
@@ -58,7 +59,6 @@ module.exports = {
 					}
 				},
 				fail: function(err) {
-					console.log(err, 80);
 					console.info("服务端错误: ", err);
 					wx.showModal({
 						title: "提示",

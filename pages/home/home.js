@@ -26,7 +26,9 @@ Page({
 		],
 		position: "",
 		// 商店信息
-		shop: []
+		shop: [],
+		// 按销量排序的商店
+		sortSelesData: []
 	},
 	// 位置弹框的开关
 	onShowPositionDialog() {
@@ -36,55 +38,56 @@ Page({
 	},
 	// 改变位置的时候
 	onChangePosition(event) {
-		console.log(event.detail, "change position");
+		console.log(event);
 	},
 	// 选取位置确定
 	onConfirmPosition(event) {
 		console.log(event.detail.value, "position sure");
+		// 位置信息保存
+		wx.setStorageSync("campus", event.detail.value[2]);
 		// 关闭弹框
 		this.onShowPositionDialog();
 		this.setData({
 			position: event.detail.value[2]
+		});
+		setTimeout(() => {
+			// 重新查询页面
+			this.getHomeMessage();
+		}, 0);
+
+	},
+	// 点击轮播图
+	swiperClick(e) {
+		let shopid = e.currentTarget.dataset.shopid;
+		// 跳转到详情页
+		wx.navigateTo({
+			url: `/pages/shop/shop?id=${shopid}`
 		});
 	},
 	// 点击商店
 	shopClick(e) {
 		let id = e.currentTarget.dataset.id;
 		console.log(id);
-		// 跳转到详情页
+		// 跳转到商店
 		wx.navigateTo({
 			url: `/pages/shop/shop?id=${id}`
 		});
 	},
 	// type点击
-	toTypeListPage() {
+	toTypeListPage(e) {
+		console.log(e);
+		let id = e.currentTarget.dataset.id;
 		// 跳转到type页面
 		wx.navigateTo({
-			url: "/pages/type/type"
+			url: `/pages/type/type?id=${id}`
 		});
 	},
-
-
 	/**
    * 生命周期函数--监听页面加载
    */
 	onLoad: function () {
-		// 获取轮播图数据
-		request.get({
-			url: "/swiper/all"
-		}).then(res => {
-			this.setData({
-				swiperUrls: res.data || []
-			});
-		});
-		// 获取商品类型分类
-		request.get({
-			url: "/type/all"
-		}).then(res => {
-			this.setData({
-				type: res.data || []
-			});
-		});
+		// 获取所属校园s
+		let value = wx.getStorageSync("campus");
 		// 获取位置信息
 		request.get({
 			url: "/position/all"
@@ -106,14 +109,42 @@ Page({
 						className: "column3"
 					},
 				],
-				position: res.data[0].name || "未知区域"
+				position: value ? value : res.data[0].name
+			});
+
+			if(value) {
+				this.getHomeMessage();
+			}else{
+				wx.setStorageSync("campus", res.data[0].name);
+				this.getHomeMessage();
+			}
+		});
+
+
+	},
+	// 获取首页信息
+	getHomeMessage: function() {
+		// 获取轮播图数据
+		request.get({
+			url: "/swiper/all"
+		}).then(res => {
+			this.setData({
+				swiperUrls: res.data || []
+			});
+		});
+		// 获取商品类型分类
+		request.get({
+			url: "/type/all"
+		}).then(res => {
+			this.setData({
+				type: res.data || []
 			});
 		});
 		// 获取商店列表
 		request.get({
 			url: "/shop/all"
 		}).then(res => {
-			let data = res.data || [];
+			let data = res.data || [], sortSelesData = [];
 			data.map(item => {
 				let special = item.special.includes("@@") ? item.special.split("@@") : [];
 				let tempData = [];
@@ -125,9 +156,14 @@ Page({
 					});
 				});
 				item.special = tempData;
+				sortSelesData.push(item);
+			});
+			sortSelesData.sort((a, b) => {
+				return b.sales - a.sales;
 			});
 			this.setData({
-				shop: data || []
+				shop: data || [],
+				sortSelesData
 			});
 		});
 	},

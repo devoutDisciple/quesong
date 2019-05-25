@@ -91,43 +91,47 @@ Page({
 
 	// 表单提交
 	formSubmit(e) {
-		let value = e.detail.value, params = {};
+		let value = e.detail.value;
 		console.log(value, 11);
 		// 选择校内
+		if(!value.username) return this.formMessage("请输入联系人姓名");
+		if(!value.phone) return this.formMessage("请输入手机号");
+		let params = {
+			username: value.username,
+			sex: this.data.sexRedio,
+			phone: value.phone,
+			otherPhone: value.otherPhone,
+		};
 		if(this.data.campusRadio == 1) {
-			if(!value.username) return this.formMessage("请输入联系人姓名");
-			if(!value.phone) return this.formMessage("请输入手机号");
 			if(!value.campus) return this.formMessage("请选择校区");
 			if(!value.floor) return this.formMessage("请选择楼号");
 			if(!value.home) return this.formMessage("请输入宿舍号");
-			params = {
-				username: value.username,
-				sex: this.data.sexRedio,
-				phone: value.phone,
-				otherPhone: value.otherPhone,
+			let address = JSON.stringify(Object.assign({
+				isSchool: true,
 				campus: value.campus,
 				floor: value.floor,
-				home: value.home,
-			};
+				home: value.home
+			}, params));
+			params.address = address;
 		} else {
-			if(!value.username) return this.formMessage("请输入联系人姓名");
-			if(!value.phone) return this.formMessage("请输入手机号");
 			if(!value.address) return this.formMessage("请输入收货地址");
 			if(!value.table) return this.formMessage("请输入门牌号");
-			params = {
-				username: value.username,
-				sex: this.data.sexRedio,
-				phone: value.phone,
-				otherPhone: value.otherPhone,
-				address: value.address,
-				table: value.table,
-			};
+			let address = JSON.stringify(Object.assign({
+				isSchool: false,
+				family: value.address,
+				table: value.tables
+			}, params));
+			params.address = address;
 		}
 		request.post({
 			url: "/user/addAddress",
 			data: params
 		}).then(res => {
 			console.log(res);
+			// 跳转到详情页
+			wx.navigateTo({
+				url: "/pages/myAddress/myAddress"
+			});
 		});
 	},
 
