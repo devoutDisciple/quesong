@@ -2,10 +2,31 @@
 	<!-- <van-row></van-row> -->
 	<scroll-view scroll-y class="accounts_content">
 		<van-row custom-class="accounts_content_address">
-			<van-row custom-class="accounts_content_address_add">
+			<van-row wx:if="{{!address.phone}}" custom-class="accounts_content_address_add">
 				<view bind:tap="onClickAddAddress" class="accounts_content_address_add_btn">
 					＋ 新增收货地址
 				</view>
+			</van-row>
+			<van-row wx:else custom-class="accounts_content_address_item">
+				<van-col custom-class="accounts_content_address_desc">
+					<van-row wx:if="{{address.isSchool}}" custom-class="accounts_content_address_desc_address">
+						<van-col custom-class="accounts_content_address_desc_address_item">{{address.campus}}</van-col>
+						<van-col custom-class="accounts_content_address_desc_address_item">{{address.floor}}</van-col>
+						<van-col custom-class="accounts_content_address_desc_address_item">{{address.home}}</van-col>
+					</van-row>
+					<van-row wx:else custom-class="accounts_content_address_desc_address">
+						<van-col custom-class="accounts_content_address_desc_address_item">{{address.family}}</van-col>
+						<van-col custom-class="accounts_content_address_desc_address_item">{{address.table}}</van-col>
+					</van-row>
+					<van-row custom-class="accounts_content_address_desc_person">
+						<van-col custom-class="accounts_content_address_desc_name">{{address.username}}</van-col>
+						<van-col custom-class="accounts_content_address_desc_sex">{{address.sex == 1 ? "男同学" : "女同学"}}</van-col>
+						<van-col custom-class="accounts_content_address_desc_phone">{{address.phone}}</van-col>
+					</van-row>
+				</van-col>
+				<van-col custom-class="accounts_content_address_edit" bindtap="goEditPage" data-item="{{item}}" data-index="{{index}}">
+					<image src="/asserts/imgs/edit.png" />
+				</van-col>
 			</van-row>
 			<!-- <van-row custom-class="accounts_content_address_address"></van-row> -->
 		</van-row>

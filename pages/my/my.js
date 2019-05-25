@@ -13,7 +13,7 @@ Page({
 	// 点击新增收货地址
 	onClickAddAddress() {
 		wx.navigateTo({
-			url: "/pages/address/address"
+			url: "/pages/myAddress/myAddress"
 		});
 	},
 	//事件处理函数

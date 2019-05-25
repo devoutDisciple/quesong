@@ -7,7 +7,7 @@
 		<van-row custom-class="address_row">
 			<van-col custom-class="address_row_label">联系人：</van-col>
 			<van-col custom-class="address_row_input">
-				<input name="username" placeholder="姓名"/>
+				<input name="username" value="{{username}}" placeholder="姓名"/>
 			</van-col>
 		</van-row>
 		<van-row custom-class="address_row">
@@ -25,13 +25,13 @@
 		<van-row custom-class="address_row">
 			<van-col custom-class="address_row_label">电话：</van-col>
 			<van-col custom-class="address_row_input">
-				<input name="phone" placeholder="请填写收货手机号码" type="number"/>
+				<input name="phone" value="{{phone}}" placeholder="请填写收货手机号码" type="number"/>
 			</van-col>
 		</van-row>
 		<van-row custom-class="address_row">
 			<van-col custom-class="address_row_label">备用联系电话：</van-col>
 			<van-col custom-class="address_row_input">
-				<input name="otherPhone" placeholder="请填写室友手机号码" type="number"/>
+				<input name="otherPhone" value="{{otherPhone}}" placeholder="请填写室友手机号码" type="number"/>
 			</van-col>
 		</van-row>
 		<van-row custom-class="address_row">
@@ -49,7 +49,7 @@
 			<van-row custom-class="address_row">
 				<van-col custom-class="address_row_label">学校：</van-col>
 				<van-col custom-class="address_row_input">
-					<input value="{{position}}" bind:tap="onShowPositionDialog" disabled name="campus" placeholder="请选择学校" />
+					<input value="{{campus}}" bind:tap="onShowPositionDialog" disabled name="campus" placeholder="请选择学校" />
 				</van-col>
 			</van-row>
 			<van-row custom-class="address_row">
@@ -61,7 +61,7 @@
 			<van-row custom-class="address_row">
 				<van-col custom-class="address_row_label">宿舍号：</van-col>
 				<van-col custom-class="address_row_input">
-					<input name="home" placeholder="例：520室" />
+					<input name="home" value="{{home}}"  placeholder="例：520室" />
 				</van-col>
 			</van-row>
 			<van-row custom-class="address_row_btn">
@@ -72,13 +72,13 @@
 			<van-row custom-class="address_row">
 				<van-col custom-class="address_row_label">地址：</van-col>
 				<van-col custom-class="address_row_input">
-					<input name="address" placeholder="请输入收货地址" />
+					<input name="family" value="{{family}}" placeholder="请输入收货地址" />
 				</van-col>
 			</van-row>
 			<van-row custom-class="address_row">
 				<van-col custom-class="address_row_label">门牌号：</van-col>
 				<van-col custom-class="address_row_input">
-					<input name="table" placeholder="例：9号楼520室" />
+					<input name="table" value="{{table}}"  placeholder="例：9号楼520室" />
 				</van-col>
 			</van-row>
 			<van-row custom-class="address_row_btn">

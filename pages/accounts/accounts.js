@@ -12,11 +12,13 @@ Page({
 		orderList: [], // 订购的菜品
 		totalPrice: 0, // 总价
 		discountPrice: 0, // 满减优惠
+		personDetail: {}, // 个人信息
+		address: {}, // 默认收货地址
 	},
 	// 点击新增收货地址
 	onClickAddAddress() {
 		wx.navigateTo({
-			url: "/pages/address/address"
+			url: "/pages/address/address?type=create"
 		});
 	},
 	// 支付订单
@@ -31,7 +33,6 @@ Page({
 		// 	success(res) { },
 		// 	fail(res) { }
 		// });
-		console.log(this.data.shopDetail, this.data.orderList, this.data.totalPrice, this.data.discountPrice);
 		let shopDetail = {
 			id: this.data.shopDetail.id,
 			name: this.data.shopDetail.name,
@@ -55,7 +56,13 @@ Page({
 				url: "/pages/order/order"
 			});
 		});
-
+	},
+	// 点击编辑收货地址
+	goEditPage() {
+		// 跳转到编辑地址表单页面
+		wx.navigateTo({
+			url: "/pages/myAddress/myAddress"
+		});
 	},
 
 	/**
@@ -88,17 +95,28 @@ Page({
 	},
 
 	/**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-	onReady: function () {
-
-	},
-
-	/**
    * 生命周期函数--监听页面显示
    */
 	onShow: function () {
-
+		// 获取个人信息
+		request.get({
+			url: "/user/getUserByOpenid"
+		}).then(res => {
+			let personDetail = res.data;
+			let addressList = personDetail.address ? JSON.parse(personDetail.address) : [];
+			let address = {};
+			console.log(addressList, 1111);
+			for(let i = 0; i < addressList.length; i++) {
+				if(addressList[i].default) {
+					address = addressList[i];
+				}
+			}
+			console.log(address, 9989);
+			this.setData({
+				personDetail: personDetail,
+				address: address
+			});
+		});
 	},
 
 	/**

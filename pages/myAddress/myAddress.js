@@ -28,16 +28,25 @@ Page({
 		});
 	},
 
-	// 点击新增收货地址
+	// 点击新增地址
 	addAddress: function() {
-		// 跳转到详情页
+		// 跳转到新增地址表单页面
 		wx.navigateTo({
-			url: "/pages/address/address"
+			url: "/pages/address/address?type=create"
 		});
 	},
 	// 编辑收货地址
 	goEditPage: function(e) {
-		console.log(e);
+		console.log(e.currentTarget.dataset.item, "editData-----");
+		this.setData({
+			editData: e.currentTarget.dataset.item,
+			editIndex: e.currentTarget.dataset.index,
+		}, () => {
+			// 跳转到编辑地址表单页面
+			wx.navigateTo({
+				url: "/pages/address/address?type=edit"
+			});
+		});
 	},
 	/**
    * 生命周期函数--监听页面加载

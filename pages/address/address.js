@@ -7,10 +7,19 @@ Page({
 		sexRedio: "1", // 默认选中男同学
 		campusRadio: "1", // 默认是校内
 		positionDialogVisible: false, // 学校位置弹框
+		username: "",
+		phone: "",
+		otherPhone: "",
+		campus: "",
+		floor: "",
+		home: "",
+		family: "",
+		table: "",
 		// 位置按钮种类
 		positionColumns: [
 		],
-		position: "111", // 选取后的位置信息
+		type: "create", //默认是新增
+
 		floorDialogVisible: false, // 宿舍楼号
 		floorColumns: [
 			{
@@ -22,19 +31,16 @@ Page({
 				className: "column2"
 			},
 		],
-		floor: "444", //选取后的楼层信息
 	},
 
 	// 改变男女同学按钮
 	onChangeSexRadio(e) {
-		console.log(e);
 		this.setData({
 			sexRedio: e.detail
 		});
 	},
 	// 改变校内还是校外
 	onChangeCampusRadio(e) {
-		console.log(e);
 		this.setData({
 			campusRadio: e.detail
 		});
@@ -56,7 +62,7 @@ Page({
 		// 关闭弹框
 		this.onShowPositionDialog();
 		this.setData({
-			position: event.detail.value.join(" ")
+			campus: event.detail.value.join(" ")
 		});
 	},
 
@@ -64,7 +70,7 @@ Page({
 	// 位置弹框的开关
 	onShowFloorDialog() {
 		let floorDialogVisible = this.data.floorDialogVisible;
-		if(!floorDialogVisible && !this.data.position) {
+		if(!floorDialogVisible && !this.data.campus) {
 			return wx.showModal({
 				title: "提示",
 				content: "请选择学校地址",
@@ -92,7 +98,7 @@ Page({
 	// 表单提交
 	formSubmit(e) {
 		let value = e.detail.value;
-		console.log(value, 11);
+		console.log(value, "formsubmit------");
 		// 选择校内
 		if(!value.username) return this.formMessage("请输入联系人姓名");
 		if(!value.phone) return this.formMessage("请输入手机号");
@@ -114,25 +120,56 @@ Page({
 			}, params));
 			params.address = address;
 		} else {
-			if(!value.address) return this.formMessage("请输入收货地址");
+			if(!value.family) return this.formMessage("请输入收货地址");
 			if(!value.table) return this.formMessage("请输入门牌号");
 			let address = JSON.stringify(Object.assign({
 				isSchool: false,
-				family: value.address,
-				table: value.tables
+				family: value.family,
+				table: value.table
 			}, params));
 			params.address = address;
 		}
-		request.post({
-			url: "/user/addAddress",
-			data: params
-		}).then(res => {
-			console.log(res);
-			// 跳转到详情页
-			wx.navigateTo({
-				url: "/pages/myAddress/myAddress"
+		let type = this.data.type;
+		if(type == "create") {
+			return request.post({
+				url: "/user/addAddress",
+				data: params
+			}).then(() => {
+				// 跳转到详情页
+				wx.navigateTo({
+					url: "/pages/myAddress/myAddress"
+				});
 			});
-		});
+		}
+		if(type == "edit") {
+			let pages = getCurrentPages();
+			let prevPage = pages[pages.length - 2];  //上一个页面
+			let data = prevPage.data;
+			let newAddress = [];
+
+			data.addressList.map((item, index) => {
+				if(index == data.editIndex) {
+					let itemAddress = JSON.parse(params.address);
+					if(item.default) itemAddress.default = true;
+					newAddress.push(itemAddress);
+					return;
+				}
+				newAddress.push(item);
+				return;
+			});
+			request.post({
+				url: "/user/updateAddress",
+				data: {
+					address: JSON.stringify(newAddress)
+				}
+			}).then(() => {
+				// 跳转到详情页
+				wx.navigateTo({
+					url: "/pages/myAddress/myAddress"
+				});
+			});
+		}
+
 	},
 
 	// 表单提示信息
@@ -148,7 +185,33 @@ Page({
    * 生命周期函数--监听页面加载
    */
 	onLoad: function (options) {
-		console.log(options);
+		let type = options.type;
+		// 如果是新增
+		if(type == "create") {
+			this.setData({
+				type: "create"
+			});
+		}
+		// 如果是编辑
+		if(type == "edit") {
+			let pages = getCurrentPages();
+			let prevPage = pages[pages.length - 2];  //上一个页面
+			let data = prevPage.data, editData = data.editData;
+			console.log(editData, "编辑地址");
+			this.setData({
+				type: "edit",
+				username: editData.username,
+				sexRedio: editData.sex,
+				phone: editData.phone,
+				otherPhone: editData.otherPhone,
+				campusRadio: editData.isSchool ? "1" : "2", // 校内或者校外
+				campus: editData.campus || "",
+				floor: editData.floor || "",
+				home: editData.home || "",
+				family: editData.family || "",
+				table: editData.table || ""
+			});
+		}
 		// 获取位置信息
 		request.get({
 			url: "/position/all"
