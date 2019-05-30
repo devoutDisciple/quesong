@@ -22,8 +22,8 @@
 			</van-row>
 
 			<van-row custom-class="order_content_item_footer">
-				<text>再来一单</text>
-				<text>评价</text>
+				<!-- <text>再来一单</text> -->
+				<text bindtap="goGrade" data-orderItem="{{item}}">评价</text>
 			</van-row>
 		</van-row>
 	</scroll-view>

@@ -23,7 +23,20 @@ Page({
 				url: "/pages/orderDetail/orderDetail"
 			});
 		});
+	},
 
+	// 评价
+	goGrade(e) {
+		console.log(e);
+		let orderitem = e.currentTarget.dataset.orderitem;
+		this.setData({
+			orderitem: orderitem
+		}, () => {
+			// 跳转评价页面
+			wx.navigateTo({
+				url: "/pages/orderEvaluate/orderEvaluate"
+			});
+		});
 	},
 
 	/**
