@@ -37,7 +37,8 @@ Page({
 			id: this.data.shopDetail.id,
 			name: this.data.shopDetail.name,
 			address: this.data.shopDetail.address,
-			url: this.data.shopDetail.url
+			url: this.data.shopDetail.url,
+			send_price: this.data.shopDetail.send_price
 		};
 		request.post({
 			url: "/order/add",
@@ -69,11 +70,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
 	onLoad: function () {
-		// var pages = getCurrentPages();
-		// var Page = pages[pages.length - 1];//当前页
-		// var prevPage = pages[pages.length - 2];  //上一个页面
-		// var info = prevPage.data; //取上页data里的数据也可以修改
-		// prevPage.setData({键:值 });//设置数据
 		let pages = getCurrentPages();
 		let prevPage = pages[pages.length - 2];  //上一个页面
 		let data = prevPage.data;

@@ -8,13 +8,28 @@ Page({
    */
 	data: {
 		list: [],// 订单数据
+		orderitem: {},// 点击的订单详情
+	},
+
+	// 点击查看订单详情
+	onSearchOrderDetail(e) {
+		console.log(e);
+		let orderitem = e.currentTarget.dataset.orderitem;
+		this.setData({
+			orderitem: orderitem
+		}, () => {
+			// 跳转订单详情页面
+			wx.navigateTo({
+				url: "/pages/orderDetail/orderDetail"
+			});
+		});
+
 	},
 
 	/**
    * 生命周期函数--监听页面加载
    */
 	onLoad: function () {
-
 		// 设置标题
 		wx.setNavigationBarTitle({
 			title: "订单"
@@ -37,13 +52,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
 	onShow: function () {
-		request.get({url: "/order/getListById"}).then(res => {
+		request.get({url: "/order/getListByOpenid"}).then(res => {
 			console.log(res);
 			this.setData({
 				list: res.data.map(item => {
 					item.shop_detail = JSON.parse(item.shop_detail);
 					item.order_list = JSON.parse(item.order_list);
-					item.order_time = moment.formatDate("Y-m-d H:i:s");
+					item.order_time = moment.format(item.order_time);
 					item.status = orderUtil.filterStatus(item.status);
 					return item;
 				})
