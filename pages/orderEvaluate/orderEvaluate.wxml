@@ -33,7 +33,10 @@
 			</van-row>
 		</van-row>
 	</van-row>
-	<van-row custom-class="orderEvaluate_btn">
-		<button bindtap="submit" class="{{success ? 'orderEvaluate_btn_active' : ''}}" disabled="{{!success}}">提交评价</button>
-	</van-row>
+	<form bindsubmit="submit">
+		<textarea class='orderEvaluate_text_area' placeholder="请输入您的意见，方便我们为您提供更好的服务！" name="textarea"/>
+		<van-row custom-class="orderEvaluate_btn">
+			<button form-type="submit" class="{{success ? 'orderEvaluate_btn_active' : ''}}" disabled="{{!success}}">提交评价</button>
+		</van-row>
+	</form>
 </van-row>

@@ -1,4 +1,5 @@
 // pages/custom/custom.js
+const config = require("../../utils/config");
 Page({
 
 	/**
@@ -11,7 +12,7 @@ Page({
 	// 点击联系我们按钮
 	concatus() {
 		wx.makePhoneCall({
-			phoneNumber: "15906672702" // 仅为示例，并非真实的电话号码
+			phoneNumber: config.phoneNumber // 仅为示例，并非真实的电话号码
 		});
 	},
 

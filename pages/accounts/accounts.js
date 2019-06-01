@@ -40,9 +40,19 @@ Page({
 			url: this.data.shopDetail.url,
 			send_price: this.data.shopDetail.send_price
 		};
+		console.log(this.data.orderList, 111);
+		let goodIds = [];
+		this.data.orderList.map(item => {
+			goodIds.push({
+				id: item.id,
+				num: item.num
+			});
+		});
 		request.post({
 			url: "/order/add",
 			data: {
+				id: this.data.shopDetail.id,
+				goodIds: goodIds,
 				shop_detail: JSON.stringify(shopDetail),
 				order_list: JSON.stringify(this.data.orderList),
 				total_price: this.data.totalPrice, // 总价
@@ -76,7 +86,7 @@ Page({
 		this.setData({
 			shopDetail: data.shopDetail,
 			orderList: data.orderList,
-			totalPrice: data.totalPrice,
+			totalPrice: Number(data.totalPrice) + Number(data.shopDetail.send_price),
 			discountPrice: data.discountPrice
 		});
 		// 设置标题

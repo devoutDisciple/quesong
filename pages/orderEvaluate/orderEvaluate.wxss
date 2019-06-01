@@ -54,3 +54,11 @@
 /* #64f4d2 */
 /* height: calc(100vh - 20px); */
 	/* width: calc(100vw - 20px); */
+.orderEvaluate_text_area{
+	width: calc(100vw - 40px);
+	margin: 10px;
+	background: #fff;
+	height: 150px;
+	box-shadow: 1px 1px 5px #efefef;
+	padding: 10px;
+}

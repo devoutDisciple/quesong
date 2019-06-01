@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/home/home",
     "pages/orderEvaluate/orderEvaluate",
+    "pages/home/home",
     "pages/order/order",
     "pages/orderDetail/orderDetail",
     "pages/accounts/accounts",

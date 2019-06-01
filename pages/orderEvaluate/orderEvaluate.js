@@ -40,20 +40,23 @@ Page({
 		}
 	},
 
-	submit() {
+	submit(e) {
 		// 跳转订单页面
 		if(this.data.success) {
+			let value = e.detail.value.textarea,
+				{peopleGrade, shopGrade} = this.data;
+			console.log(peopleGrade, shopGrade, value);
 			// 跳转订单页面
-			wx.switchTab({
-				url: "/pages/order/order",
-				success: () => {
-					wx.showToast({
-						title: "评价成功",
-						icon: "success",
-						duration: 2000
-					});
-				}
-			});
+			// wx.switchTab({
+			// 	url: "/pages/order/order",
+			// 	success: () => {
+			// 		wx.showToast({
+			// 			title: "评价成功",
+			// 			icon: "success",
+			// 			duration: 2000
+			// 		});
+			// 	}
+			// });
 		}
 
 	},
