@@ -201,7 +201,12 @@
 }
 
 
-
+.accounts_comment_textarea{
+	border: 1px solid #ebebeb;
+	padding: 10px;
+	width: calc(100% - 20px);
+	margin-top: 10px;
+}
 
 
 

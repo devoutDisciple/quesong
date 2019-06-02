@@ -1,6 +1,7 @@
 // pages/shop/shop.js
 // const app = getApp();
 const request = require("../../utils/request");
+const moment = require("../../utils/moment");
 Page({
 
 	/**
@@ -15,6 +16,28 @@ Page({
 		totalPrice: 0, // 订单总价
 		discountPrice: 0, // 已经优惠价格
 		totalNum: 0, //订单总数量
+		active: 0, // 默认选中的tab
+		evaluateList: [], // 评价列表
+	},
+	// 切换tab
+	onChangeTab(e) {
+		console.log(e);
+		let index = e.detail.index;
+		console.log(index, this.data.shopDetail, 89);
+		// 商品评价
+		if(index == 1) {
+			request.get({
+				url: `/evaluate/getEvaluateByShopid?shopid=${this.data.shopDetail.id}`
+			}).then(res => {
+				let data = res.data;
+				data.map(item => {
+					item.create_time = moment.formatToDay(item.create_time);
+				});
+				this.setData({
+					evaluateList: data || []
+				});
+			});
+		}
 	},
 	// 选择左侧菜单
 	changeSelectIndex(e) {
@@ -96,7 +119,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
 	onLoad: function (options) {
-		let id = options.id;
+		let id = options.id || 1;
 		// 获取商店列表
 		request.get({
 			url: `/shop/getById?id=${id}`
@@ -140,6 +163,7 @@ Page({
 			});
 		});
 	},
+
 
 	/**
    * 生命周期函数--监听页面初次渲染完成

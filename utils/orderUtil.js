@@ -1,7 +1,7 @@
 module.exports = {
 	filterStatus: function(type) {
 		let result = "订单已完成";
-		switch(type) {
+		switch(Number(type)) {
 		case 1:
 			result = "未支付";
 			break;
@@ -19,6 +19,9 @@ module.exports = {
 			break;
 		case 6:
 			result = "已取消";
+			break;
+		case 7:
+			result = "已评价";
 			break;
 		default:
 			result = "订单已完成";

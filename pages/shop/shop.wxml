@@ -23,9 +23,9 @@
         </van-col>
     </van-row>
     <van-row custom-class="shop_content">
-        <van-tabs active="{{ active }}">
+        <van-tabs active="{{ active }}" animated bind:click="onChangeTab">
             <van-tab title="菜单">
-                <van-row custom-class="shop_content_list">
+                <van-row custom-class="shop_content_list" wx:if="{{types.length != 0}}">
                     <van-col custom-class="shop_content_list_type">
                         <scroll-view class="shop_content_list_type_scroll" scroll-y>
                             <van-row
@@ -82,10 +82,42 @@
                             </van-row>
                         </scroll-view>
                     </van-col>
-                </van-row>
-            </van-tab>
+				</van-row>
+				<van-row custom-class="shop_content_empty" wx:if="{{types.length == 0}}">暂无数据</van-row>
+			</van-tab>
+			<van-tab title="评价">
+				<van-row custom-class="shop_content_list" wx:if="{{evaluateList.length != 0}}">
+ 					<scroll-view class="shop_content_list_evaluate_scroll" scroll-y>
+						 <!-- <van-row custom-class="shop_content_list_evaluate_item"></van-row> -->
+						<van-row custom-class="shop_content_list_evaluate_item" wx:for="{{evaluateList}}" wx:key="{{index}}">
+							<van-row custom-class="shop_content_list_evaluate_item_title">
+								<van-col custom-class="shop_content_list_evaluate_item_title_img">
+									<image src="{{item.avatarUrl}}"/>
+								</van-col>
+								<van-col custom-class="shop_content_list_evaluate_item_title_right">
+									<van-col custom-class="shop_content_list_evaluate_item_title_right_name">
+										<van-row custom-class="shop_content_list_evaluate_item_title_right_name_user">
+											{{item.username}}
+										</van-row>
+										<van-row custom-class="shop_content_list_evaluate_item_title_right_name_grade">
+											<van-rate value="{{item.shop_grade}}" size="{{12}}" readonly />
+										</van-row>
+									</van-col>
+									<van-col custom-class="shop_content_list_evaluate_item_title_right_time">
+										{{item.create_time}}
+									</van-col>
+								</van-col>
+							</van-row>
+							<van-row custom-class="shop_content_list_evaluate_item_content">
+								{{item.desc}}
+							</van-row>
+						</van-row>
+					 </scroll-view>
+				</van-row>
+				<van-row custom-class="shop_content_empty" wx:if="{{evaluateList.length == 0}}">暂无数据</van-row>
+			</van-tab>
             <van-tab title="商家">
-				暂无描述信息
+				<van-row custom-class="shop_content_empty">暂无数据</van-row>
 			</van-tab>
         </van-tabs>
     </van-row>

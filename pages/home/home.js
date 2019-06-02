@@ -30,6 +30,10 @@ Page({
 		// 按销量排序的商店
 		sortSelesData: []
 	},
+	// 点击搜索
+	onSearch(e) {
+		console.log(e, 111);
+	},
 	// 位置弹框的开关
 	onShowPositionDialog() {
 		this.setData({

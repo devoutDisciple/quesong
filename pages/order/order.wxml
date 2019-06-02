@@ -1,7 +1,7 @@
 <view class="order">
 	<!-- <van-row custom-class="order_item"></van-row> -->
 	<scroll-view class="order_content" scroll-y>
-		<van-row custom-class="order_content_item" wx:for="{{list}}" wx:key="{{index}}">
+		<van-row custom-class="order_content_item" wx:for="{{list}}" wx:if="{{list.length != 0}}" wx:key="{{index}}">
 			<van-row bind:tap="onSearchOrderDetail" data-orderItem="{{item}}">
 				<van-row custom-class="order_content_item_title">
 					<van-col custom-class="order_content_item_title_img">
@@ -23,8 +23,11 @@
 
 			<van-row custom-class="order_content_item_footer">
 				<!-- <text>再来一单</text> -->
-				<text bindtap="goGrade" data-orderItem="{{item}}">评价</text>
+				<text wx:if="{{item.status == 5}}">已完成</text>
+				<text wx:if="{{item.status == 5}}" bindtap="goGrade" data-orderItem="{{item}}">评价</text>
+				<text wx:if="{{item.status == 7}}">已评价</text>
 			</van-row>
 		</van-row>
+		<van-row wx:if="{{list.length == 0}}" custom-class="otder_content_empty">暂无订单</van-row>
 	</scroll-view>
 </view>

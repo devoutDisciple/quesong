@@ -50,7 +50,7 @@
 			</van-row>
 			<van-row custom-class="accounts_content_shop_message">
 				<van-row custom-class="accounts_content_shop_message_row">
-					餐盒费<van-col custom-class="accounts_content_shop_message_row_right">￥10</van-col>
+					餐盒费<van-col custom-class="accounts_content_shop_message_row_right">￥{{shopDetail.package_cost}}</van-col>
 				</van-row>
 				<van-row custom-class="accounts_content_shop_message_row">
 					配送费<van-col custom-class="accounts_content_shop_message_row_right">￥{{shopDetail.send_price}}</van-col>
@@ -68,10 +68,10 @@
 			</van-row>
 		</van-row>
 		<van-row custom-class="accounts_content_other">
-			<van-row custom-class="accounts_content_other_row">
+			<van-row custom-class="accounts_content_other_row" bindtap="addComment">
 				<text custom-class="accounts_content_other_row_left">备注</text>
 				<van-col custom-class="accounts_content_other_row_right">
-					<text class="accounts_content_other_row_right_text">口味,偏好等要求</text> >
+					<text class="accounts_content_other_row_right_text">{{showComment}}</text> >
 				</van-col>
 			</van-row>
 			<van-row custom-class="accounts_content_other_row">
@@ -84,4 +84,14 @@
 		<van-col custom-class="accounts_footer_discounts">已优惠￥{{discountPrice}}</van-col>
 		<van-col bind:tap="submitOrder" custom-class="accounts_footer_order">提交订单</van-col>
 	</van-row>
+	<van-dialog
+		use-slot
+		show="{{ show }}"
+		title="添加备注"
+		show-cancel-button
+		show-confirm-button
+		bind:cancel="cancelComment"
+		bind:confirm="confirmComment">
+		<textarea class="accounts_comment_textarea" auto-focus bindinput="textareaInput"></textarea>
+	</van-dialog>
 </view>

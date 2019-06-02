@@ -35,12 +35,17 @@
 				</van-row>
 			</view>
 			<van-row custom-class="orderDetail_order_send">
-				<van-col custom-class="orderDetail_order_send_tag">配送费</van-col>
+				<van-col custom-class="orderDetail_order_send_tag">送</van-col>
 				<van-col custom-class="orderDetail_order_send_type">雀送到楼</van-col>
 				<van-col custom-class="orderDetail_order_send_price">￥{{shopDetail.send_price || 0}}</van-col>
 			</van-row>
 			<van-row custom-class="orderDetail_order_send">
-				<van-col custom-class="orderDetail_order_send_tag">满减</van-col>
+				<van-col custom-class="orderDetail_order_send_tag">盒</van-col>
+				<van-col custom-class="orderDetail_order_send_type">餐盒费</van-col>
+				<van-col custom-class="orderDetail_order_send_price">￥{{shopDetail.package_cost || 0}}</van-col>
+			</van-row>
+			<van-row custom-class="orderDetail_order_send">
+				<van-col custom-class="orderDetail_order_send_tag">减</van-col>
 				<van-col custom-class="orderDetail_order_send_type">全店满减</van-col>
 				<van-col custom-class="orderDetail_order_send_price">-￥{{orderDetail.discount_price}}</van-col>
 			</van-row>

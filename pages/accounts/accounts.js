@@ -7,18 +7,46 @@ Page({
    * 页面的初始数据
    */
 	data: {
-		imgUrl: "https://quesong.top/attachment/images/2/2019/05/RVr6ZRT6Rtzhola08ohAHb2bBXSaPb.jpeg",
 		shopDetail: {}, // 商店详情
 		orderList: [], // 订购的菜品
 		totalPrice: 0, // 总价
 		discountPrice: 0, // 满减优惠
 		personDetail: {}, // 个人信息
 		address: {}, // 默认收货地址
+		show: false, // 备注信息弹框是否开启
+		comment: "", // 备注信息
+		showComment: "口味,偏好等要求"
 	},
 	// 点击新增收货地址
 	onClickAddAddress() {
 		wx.navigateTo({
 			url: "/pages/address/address?type=create"
+		});
+	},
+	// 点击新增备注
+	addComment() {
+		this.setData({
+			show: !this.data.show
+		});
+	},
+	// 备注信息点击确定的时候
+	confirmComment() {
+		this.addComment();
+	},
+	// 备注信息点击取消的时候
+	cancelComment() {
+		this.setData({
+			comment: "",
+			showComment: "口味,偏好等要求"
+		});
+	},
+	// 键盘输入的时候
+	textareaInput(e) {
+		console.log(e.detail.value);
+		let value = e.detail.value;
+		this.setData({
+			comment: value,
+			showComment: value.length > 7 ? value.slice(0, 7) + "..." : value
 		});
 	},
 	// 支付订单
@@ -38,6 +66,7 @@ Page({
 			name: this.data.shopDetail.name,
 			address: this.data.shopDetail.address,
 			url: this.data.shopDetail.url,
+			package_cost: this.data.shopDetail.package_cost,
 			send_price: this.data.shopDetail.send_price
 		};
 		console.log(this.data.orderList, 111);
@@ -58,7 +87,7 @@ Page({
 				total_price: this.data.totalPrice, // 总价
 				discount_price: this.data.discountPrice, // 优惠价格
 				order_time: (new Date()).getTime(),
-				status: 1
+				desc: this.data.comment, // 备注信息
 			}
 		}).then(res => {
 			console.log(res);
@@ -86,7 +115,7 @@ Page({
 		this.setData({
 			shopDetail: data.shopDetail,
 			orderList: data.orderList,
-			totalPrice: Number(data.totalPrice) + Number(data.shopDetail.send_price),
+			totalPrice: Number(data.totalPrice) + Number(data.shopDetail.send_price) + Number(data.shopDetail.package_cost),
 			discountPrice: data.discountPrice
 		});
 		// 设置标题

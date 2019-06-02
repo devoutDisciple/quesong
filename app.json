@@ -1,15 +1,15 @@
 {
   "pages": [
-    "pages/orderEvaluate/orderEvaluate",
     "pages/home/home",
-    "pages/order/order",
-    "pages/orderDetail/orderDetail",
     "pages/accounts/accounts",
+    "pages/shop/shop",
+    "pages/order/order",
+    "pages/orderEvaluate/orderEvaluate",
+    "pages/orderDetail/orderDetail",
     "pages/myAddress/myAddress",
     "pages/address/address",
     "pages/my/my",
     "pages/custom/custom",
-    "pages/shop/shop",
     "pages/type/type",
     "pages/index/index",
     "pages/option/option"
@@ -63,7 +63,8 @@
     "van-radio": "dist/radio/index",
     "van-radio-group": "dist/radio-group/index",
     "van-checkbox": "dist/checkbox/index",
-    "van-rate": "dist/rate/index"
+    "van-rate": "dist/rate/index",
+    "van-dialog": "dist/dialog/index"
   },
   "sitemapLocation": "sitemap85.json"
 }

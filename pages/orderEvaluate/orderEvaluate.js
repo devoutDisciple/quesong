@@ -1,4 +1,5 @@
-// pages/orderEvaluate/orderEvaluate.js
+const request = require("../../utils/request");
+let app =  getApp();
 Page({
 
 	/**
@@ -46,19 +47,33 @@ Page({
 			let value = e.detail.value.textarea,
 				{peopleGrade, shopGrade} = this.data;
 			console.log(peopleGrade, shopGrade, value);
-			// 跳转订单页面
-			// wx.switchTab({
-			// 	url: "/pages/order/order",
-			// 	success: () => {
-			// 		wx.showToast({
-			// 			title: "评价成功",
-			// 			icon: "success",
-			// 			duration: 2000
-			// 		});
-			// 	}
-			// });
+			request.post({
+				url: "/evaluate/addEvaluate",
+				data: {
+					orderid: this.data.orderitem.id,
+					shopid: this.data.shopDetail.id,
+					desc: value,
+					shop_grade: shopGrade,
+					sender_grade: peopleGrade,
+					create_time: (new Date()).getTime(),
+					avatarUrl: app.globalData.userInfo.avatarUrl || "",
+					username: app.globalData.userInfo.nickName || "hx...123",
+				}
+			}).then(res => {
+				console.log(res);
+				// 跳转订单页面;
+				wx.switchTab({
+					url: "/pages/order/order",
+					success: () => {
+						wx.showToast({
+							title: "评价成功",
+							icon: "success",
+							duration: 2000
+						});
+					}
+				});
+			});
 		}
-
 	},
 
 	/**
@@ -77,13 +92,6 @@ Page({
 	},
 
 	/**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-	onReady: function () {
-
-	},
-
-	/**
    * 生命周期函数--监听页面显示
    */
 	onShow: function () {
@@ -92,41 +100,8 @@ Page({
 		let data = prevPage.data;
 		this.setData({
 			shopDetail: data.orderitem.shop_detail,
+			orderitem: data.orderitem
 		});
 	},
 
-	/**
-   * 生命周期函数--监听页面隐藏
-   */
-	onHide: function () {
-
-	},
-
-	/**
-   * 生命周期函数--监听页面卸载
-   */
-	onUnload: function () {
-
-	},
-
-	/**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-	onPullDownRefresh: function () {
-
-	},
-
-	/**
-   * 页面上拉触底事件的处理函数
-   */
-	onReachBottom: function () {
-
-	},
-
-	/**
-   * 用户点击右上角分享
-   */
-	onShareAppMessage: function () {
-
-	}
 });
