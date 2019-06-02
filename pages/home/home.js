@@ -28,11 +28,16 @@ Page({
 		// 商店信息
 		shop: [],
 		// 按销量排序的商店
-		sortSelesData: []
+		sortSelesData: [],
+		freeList: [], //免费霸王餐
 	},
 	// 点击搜索
 	onSearch(e) {
-		console.log(e, 111);
+		let value = e.detail;
+		// 跳转到type页面
+		wx.navigateTo({
+			url: `/pages/type/type?value=${value}&type=search`
+		});
 	},
 	// 位置弹框的开关
 	onShowPositionDialog() {
@@ -83,14 +88,14 @@ Page({
 		let id = e.currentTarget.dataset.id;
 		// 跳转到type页面
 		wx.navigateTo({
-			url: `/pages/type/type?id=${id}`
+			url: `/pages/type/type?value=${id}&type=type`
 		});
 	},
 	/**
    * 生命周期函数--监听页面加载
    */
 	onLoad: function () {
-		// 获取所属校园s
+		// 获取所属校园
 		let value = wx.getStorageSync("campus");
 		// 获取位置信息
 		request.get({
@@ -143,6 +148,28 @@ Page({
 			this.setData({
 				type: res.data || []
 			});
+		});
+		// 获取免费霸王餐
+		request.get({
+			url: "/free/getFreeGoods"
+		}).then(res => {
+			let data = res.data;
+			console.log(data, 678);
+			// data.map((item) => {
+			// 	// request.get({
+			// 	// 	url: "/free/getFreeGoods"
+			// 	// }).then(res => {
+			// 	// 	item.shopDetail = res.data;
+			// 	// });
+			// 	// request.get({
+			// 	// 	url: "/free/getFreeGoods"
+			// 	// }).then(res => {
+			// 	// 	item.goodsDetail = res.data;
+			// 	// });
+			// });
+			// this.setData({
+			// 	type: res.data || []
+			// });
 		});
 		// 获取商店列表
 		request.get({

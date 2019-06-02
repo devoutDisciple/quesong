@@ -7,7 +7,7 @@
           placeholder="请输入"
           use-action-slot
           bind:search="onSearch">
-          <view slot="action" bindtap="onSearch">搜索</view>
+          <!-- <view slot="action" bindtap="onSearch">搜索</view> -->
         </van-search>
     </van-row>
     <van-row custom-class="type_content">
