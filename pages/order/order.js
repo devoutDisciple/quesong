@@ -1,6 +1,6 @@
 const request = require("../../utils/request");
 const moment = require("../../utils/moment");
-// const orderUtil = require("../../utils/orderUtil");
+const orderUtil = require("../../utils/orderUtil");
 Page({
 
 	/**
@@ -72,6 +72,7 @@ Page({
 					item.order_list = JSON.parse(item.order_list);
 					item.order_time = moment.format(item.order_time);
 					// item.status = orderUtil.filterStatus(item.status);
+					item.status_cn = orderUtil.filterStatus(item.status);
 					return item;
 				})
 			});

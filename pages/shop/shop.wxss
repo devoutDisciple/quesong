@@ -46,8 +46,15 @@
     height: calc(100vh - 150px);
     overflow: hidden;
 }
+.shop_content_nofooter{
+	height: calc(100vh - 100px);
+    overflow: hidden;
+}
 .shop_content_list{
     height: calc(100vh - 194px);
+}
+.shop_content_list_nofooter{
+    height: calc(100vh - 144px);
 }
 .shop_content_list_type{
     height: 100%;
@@ -209,6 +216,7 @@
 	padding: 10px 0;
 	font-size: 12px;
 	border-bottom: 1px solid #ebebeb;
+	color: #8e8e8e;
 }
 
 

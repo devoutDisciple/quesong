@@ -11,6 +11,8 @@ Page({
 		orderList: [], // 订购的菜品
 		totalPrice: 0, // 总价
 		discountPrice: 0, // 满减优惠
+
+		type: "shop", // 默认是从shop点击进来的
 		personDetail: {}, // 个人信息
 		address: {}, // 默认收货地址
 		show: false, // 备注信息弹框是否开启
@@ -69,7 +71,6 @@ Page({
 			package_cost: this.data.shopDetail.package_cost,
 			send_price: this.data.shopDetail.send_price
 		};
-		console.log(this.data.orderList, 111);
 		let goodIds = [];
 		this.data.orderList.map(item => {
 			goodIds.push({
@@ -91,6 +92,22 @@ Page({
 			}
 		}).then(res => {
 			console.log(res);
+			if(this.data.type == "free") {
+				request.get({
+					url: "/free/subFreeGoods",
+					data: {
+						id: this.data.freeItemId,
+					}
+				});
+			}
+			if(this.data.type == "time") {
+				request.get({
+					url: "/time/subTimeGoods",
+					data: {
+						id: this.data.timeItemId,
+					}
+				});
+			}
 			// 支付订单跳转到订单页面
 			wx.switchTab({
 				url: "/pages/order/order"
@@ -108,16 +125,57 @@ Page({
 	/**
    * 生命周期函数--监听页面加载
    */
-	onLoad: function () {
+	onLoad: function (options) {
+		let type = options.type;
+		console.log(type, 111);
 		let pages = getCurrentPages();
 		let prevPage = pages[pages.length - 2];  //上一个页面
 		let data = prevPage.data;
-		this.setData({
-			shopDetail: data.shopDetail,
-			orderList: data.orderList,
-			totalPrice: Number(data.totalPrice) + Number(data.shopDetail.send_price) + Number(data.shopDetail.package_cost),
-			discountPrice: data.discountPrice
-		});
+		if(type == "shop") { // 从商店点击过来
+			this.setData({
+				type: "shop",
+				shopDetail: data.shopDetail,
+				orderList: data.orderList,
+				totalPrice: Number(data.totalPrice) + Number(data.shopDetail.send_price) + Number(data.shopDetail.package_cost),
+				discountPrice: data.discountPrice
+			});
+		}
+		if(type == "free") { // 从免费霸王餐点击过来
+			let goodsDetail = data.freeItem.goodsDetail, shopDetail = data.freeItem.shopDetail;
+			goodsDetail = Object.assign(goodsDetail, {
+				num: 1,
+				price: 0,
+				package_cost: 0,
+			});
+			shopDetail = Object.assign(shopDetail,{
+				send_price: 0,
+				package_cost: 0,
+			});
+			this.setData({
+				type: "free",
+				shopDetail: shopDetail,
+				orderList: [goodsDetail],
+				freeItemId: goodsDetail.id,
+				totalPrice: 0,
+				discountPrice: 0
+			});
+		}
+		if(type == "time") { // 从限时抢购点击过来
+			let goodsDetail = data.timeItem.goodsDetail, shopDetail = data.timeItem.shopDetail;
+			goodsDetail = Object.assign(goodsDetail, {
+				num: 1,
+			});
+			this.setData({
+				type: "time",
+				shopDetail: shopDetail,
+				orderList: [goodsDetail],
+				timeItemId: goodsDetail.id,
+				totalPrice: Number(goodsDetail.price) + Number(shopDetail.send_price) + Number(shopDetail.package_cost),
+				discountPrice: 0
+			});
+		}
+
+
 		// 设置标题
 		wx.setNavigationBarTitle({
 			title: "提交订单"
@@ -146,7 +204,6 @@ Page({
 					address = addressList[i];
 				}
 			}
-			console.log(address, 9989);
 			this.setData({
 				personDetail: personDetail,
 				address: address

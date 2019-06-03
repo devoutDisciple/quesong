@@ -22,7 +22,7 @@
            </van-row>
         </van-col>
     </van-row>
-    <van-row custom-class="shop_content">
+    <van-row custom-class="{{active == 0 ? 'shop_content' : 'shop_content_nofooter'}}">
         <van-tabs active="{{ active }}" animated bind:click="onChangeTab">
             <van-tab title="菜单">
                 <van-row custom-class="shop_content_list" wx:if="{{types.length != 0}}">
@@ -86,7 +86,7 @@
 				<van-row custom-class="shop_content_empty" wx:if="{{types.length == 0}}">暂无数据</van-row>
 			</van-tab>
 			<van-tab title="评价">
-				<van-row custom-class="shop_content_list" wx:if="{{evaluateList.length != 0}}">
+				<van-row custom-class="{{active == 0 ? 'shop_content_list' : 'shop_content_list_nofooter'}}" wx:if="{{evaluateList.length != 0}}">
  					<scroll-view class="shop_content_list_evaluate_scroll" scroll-y>
 						 <!-- <van-row custom-class="shop_content_list_evaluate_item"></van-row> -->
 						<van-row custom-class="shop_content_list_evaluate_item" wx:for="{{evaluateList}}" wx:key="{{index}}">
@@ -109,7 +109,12 @@
 								</van-col>
 							</van-row>
 							<van-row custom-class="shop_content_list_evaluate_item_content">
-								{{item.desc}}
+								<text wx:if="{{item.desc}}">
+									{{item.desc}}
+								</text>
+								<text wx:if="{{!item.desc}}">
+									该用户暂无评价
+								</text>
 							</van-row>
 						</van-row>
 					 </scroll-view>
@@ -124,7 +129,7 @@
 
 
    <!-- 底部菜单 -->
-    <van-row custom-class="shop_footer">
+    <van-row custom-class="shop_footer" wx:if="{{active == 0}}">
 		<van-col wx:if="{{totalPrice == 0}}" custom-class="shop_footer_car">
 			<image src="/asserts/imgs/car.png" />
 		</van-col>

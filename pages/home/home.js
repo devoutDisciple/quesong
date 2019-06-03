@@ -13,8 +13,6 @@ Page({
 		positionDialogVisible: false, //位置弹框的开关
 		interval: 5000, // 轮播图间隔时间
 		duration: 1000, // 轮播图延迟时间
-		freeGoodsNum: 10,// 免费商品数量
-		imgUrl: "https://quesong.top/attachment/images/2/2019/05/Cej3XdyZFkYp1pxqQYjfJMzS1jY3yZ.jpeg", // 商品图片
 		// 轮播图url
 		swiperUrls: [
 		],
@@ -24,12 +22,17 @@ Page({
 		// 位置按钮种类
 		columns: [
 		],
+		// 缓存的地址信息
 		position: "",
 		// 商店信息
 		shop: [],
 		// 按销量排序的商店
 		sortSelesData: [],
 		freeList: [], //免费霸王餐
+		freeItem: {}, //点击的免费霸王餐
+		timeList: {}, // 限时抢购列表
+		timeItem: {}, // 点击的限时抢购
+		tempTimeData: [], // 限时抢购的临时数据
 	},
 	// 点击搜索
 	onSearch(e) {
@@ -76,7 +79,6 @@ Page({
 	// 点击商店
 	shopClick(e) {
 		let id = e.currentTarget.dataset.id;
-		console.log(id);
 		// 跳转到商店
 		wx.navigateTo({
 			url: `/pages/shop/shop?id=${id}`
@@ -84,17 +86,72 @@ Page({
 	},
 	// type点击
 	toTypeListPage(e) {
-		console.log(e);
 		let id = e.currentTarget.dataset.id;
 		// 跳转到type页面
 		wx.navigateTo({
 			url: `/pages/type/type?value=${id}&type=type`
 		});
 	},
+	// 点击免费霸王餐
+	// wx.navigateTo({
+	// 	url: "/pages/accounts/accounts?type=shop"
+	// });
+	toFreeCount(e) {
+		let data = e.currentTarget.dataset.item;
+		if(data.total == 0) {
+			return wx.showModal({
+				title: "提示",
+				content: "已售罄",
+				showCancel: false
+			});
+		}
+		this.setData({
+			freeItem: data
+		}, () => {
+			wx.navigateTo({
+				url: "/pages/accounts/accounts?type=free"
+			});
+		});
+	},
+	// 点击限时抢购
+	toTimeCount(e) {
+		let data = e.currentTarget.dataset.item;
+		let nowTime = (new Date()).getTime();
+		if(data.total <= 0) {
+			return wx.showModal({
+				title: "提示",
+				content: "已售罄",
+				showCancel: false
+			});
+		}
+		if(Number(data.start_time) > nowTime) {
+			return wx.showModal({
+				title: "提示",
+				content: "暂未开售",
+				showCancel: false
+			});
+		}
+		if(Number(data.start_time) <= nowTime && nowTime < Number(data.end_time) ) {
+			this.setData({
+				timeItem: data
+			}, () => {
+				wx.navigateTo({
+					url: "/pages/accounts/accounts?type=time"
+				});
+			});
+		}
+		if(nowTime > Number(data.end_time) ) {
+			return wx.showModal({
+				title: "提示",
+				content: "活动已结束",
+				showCancel: false
+			});
+		}
+	},
 	/**
    * 生命周期函数--监听页面加载
    */
-	onLoad: function () {
+	onShow: function () {
 		// 获取所属校园
 		let value = wx.getStorageSync("campus");
 		// 获取位置信息
@@ -120,7 +177,6 @@ Page({
 				],
 				position: value ? value : res.data[0].name
 			});
-
 			if(value) {
 				this.getHomeMessage();
 			}else{
@@ -128,7 +184,15 @@ Page({
 				this.getHomeMessage();
 			}
 		});
-
+		// 设置标题
+		wx.setNavigationBarTitle({
+			title: "雀送"
+		});
+		// 设置导航栏颜色
+		wx.setNavigationBarColor({
+			frontColor: "#000000",//前景颜色值
+			backgroundColor: "#ffffff"//背景颜色值
+		});
 
 	},
 	// 获取首页信息
@@ -154,22 +218,21 @@ Page({
 			url: "/free/getFreeGoods"
 		}).then(res => {
 			let data = res.data;
-			console.log(data, 678);
-			// data.map((item) => {
-			// 	// request.get({
-			// 	// 	url: "/free/getFreeGoods"
-			// 	// }).then(res => {
-			// 	// 	item.shopDetail = res.data;
-			// 	// });
-			// 	// request.get({
-			// 	// 	url: "/free/getFreeGoods"
-			// 	// }).then(res => {
-			// 	// 	item.goodsDetail = res.data;
-			// 	// });
-			// });
-			// this.setData({
-			// 	type: res.data || []
-			// });
+			this.setData({
+				freeList: data
+			});
+		});
+		// 获取限时抢购列表
+		request.get({
+			url: "/time/getTimeGoods"
+		}).then(res => {
+			let data = res.data;
+			this.setData({
+				tempTimeData: data
+			}, () => {
+				this.changeTime();
+			});
+
 		});
 		// 获取商店列表
 		request.get({
@@ -199,6 +262,43 @@ Page({
 		});
 	},
 
+	// 更改限时抢购时间
+	changeTime() {
+		let data = this.data.tempTimeData;
+		data.map(item => {
+			let nowTime = (new Date()).getTime();
+			if(Number(item.start_time) > nowTime) {
+				item.timeText = "暂未开售";
+			}
+			if(Number(item.start_time) <= nowTime && nowTime < Number(item.end_time) ) {
+				let time = item.end_time - nowTime,
+					seconds = parseInt(time / 1000),
+					firstNum = parseInt(seconds / 3600),
+					secondNum = parseInt(seconds % 3600 / 60),
+					lastNum = parseInt(seconds % 3600 % 60);
+				item.timeText = `${this.addZero(firstNum)}:${this.addZero(secondNum)}:${this.addZero(lastNum)}`;
+			}
+			if(nowTime > Number(item.end_time) ) {
+				item.timeText = "已经结束";
+			}
+		});
+		this.setData({
+			timeList: data,
+		}, () => {
+			setTimeout(() => {
+				this.changeTime(data);
+			}, 5000);
+		});
+	},
+
+	addZero(num) {
+		num = Number(num);
+		if(num < 10) {
+			num = "0" + num;
+		}
+		return num;
+	},
+
 	/**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -218,20 +318,20 @@ Page({
 		});
 	},
 
-	/**
-   * 生命周期函数--监听页面显示
-   */
-	onShow: function () {
-		// 设置标题
-		wx.setNavigationBarTitle({
-			title: "雀送"
-		});
-		// 设置导航栏颜色
-		wx.setNavigationBarColor({
-			frontColor: "#000000",//前景颜色值
-			backgroundColor: "#ffffff"//背景颜色值
-		});
-	},
+	// 	/**
+	//    * 生命周期函数--监听页面显示
+	//    */
+	// 	onShow: function () {
+	// 		// 设置标题
+	// 		wx.setNavigationBarTitle({
+	// 			title: "雀送"
+	// 		});
+	// 		// 设置导航栏颜色
+	// 		wx.setNavigationBarColor({
+	// 			frontColor: "#000000",//前景颜色值
+	// 			backgroundColor: "#ffffff"//背景颜色值
+	// 		});
+	// 	},
 
 	/**
    * 生命周期函数--监听页面隐藏

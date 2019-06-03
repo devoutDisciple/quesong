@@ -56,24 +56,54 @@
       </van-col>
     </van-row>
     <!-- 免费霸王餐 -->
-    <!-- <van-row></van-row> -->
-    <van-row custom-class="home_content_free">
+    <van-row custom-class="home_content_free" wx:if="{{freeList && freeList.length != 0}}">
       <van-row custom-class="home_content_free_title"><text>免费霸王餐</text></van-row>
       <scroll-view scroll-x class="home_content_free_content">
-        <view class="home_content_free_item" wx:for="{{freeGoodsNum}}" wx:key="{{index}}">
+        <view class="home_content_free_item" wx:for="{{freeList}}" wx:key="{{index}}" bindtap="toFreeCount" data-item="{{item}}" wx:if="{{item.total > 0}}">
           <van-row class="home_content_free_item_img">
-            <image src="{{imgUrl}}" />
+            <image src="{{item.goodsDetail.url}}" />
           </van-row>
           <van-row class="home_content_free_item_desc">
-            <text>老北京火锅老北京火锅老北京火锅老北京火锅老北京火锅</text>
+            <text>{{item.goodsDetail.name}}</text>
+		  </van-row>
+		  <van-row class="home_content_free_item_desc_total" wx:if="{{item.total > 0}}">
+            剩余：{{item.total}}份
+		  </van-row>
+		  <van-row class="home_content_free_item_desc_total" wx:if="{{item.total == 0}}">
+            已售罄
           </van-row>
           <van-row class="home_content_free_item_price">
             <text class="home_content_free_item_price_origin">￥0.00</text>
-            <text class="home_content_free_item_price_discount">￥10.00</text>
+            <text class="home_content_free_item_price_discount">￥{{item.goodsDetail.price}}</text>
           </van-row>
         </view>
       </scroll-view>
-    </van-row>
+	</van-row>
+	<!-- 限时抢购 -->
+	<van-row custom-class="home_content_time" wx:if="{{timeList && timeList.length != 0}}">
+      <van-row custom-class="home_content_free_title"><text>限时抢购</text></van-row>
+      <scroll-view scroll-x class="home_content_time_content">
+        <view class="home_content_free_item" wx:for="{{timeList}}" wx:key="{{index}}" bindtap="toTimeCount" data-item="{{item}}" wx:if="{{item.total > 0}}">
+          <van-row class="home_content_free_item_img">
+            <image src="{{item.goodsDetail.url}}" />
+          </van-row>
+          <van-row class="home_content_free_item_desc">
+            <text>{{item.goodsDetail.name}}</text>
+		  </van-row>
+		  <van-row class="home_content_free_item_desc_total" wx:if="{{item.total > 0}}">
+            剩余：{{item.total}}份
+		  </van-row>
+		  <van-row class="home_content_free_item_desc_total" wx:if="{{item.total == 0}}">
+            已售罄
+          </van-row>
+          <van-row class="home_content_free_item_price">
+            <text class="home_content_free_item_price_origin">￥{{item.goodsDetail.price}}</text>
+            <text class="home_content_free_item_price_discount">￥{{item.goodsDetail.discount}}</text>
+		  </van-row>
+		  <van-row class="home_content_free_item_time">{{item.timeText}}</van-row>
+        </view>
+      </scroll-view>
+	</van-row>
     <!-- 商品列表 -->
     <van-row custom-class="home_content_goods">
       <van-row custom-class="home_content_goods_title">附近商家</van-row>
