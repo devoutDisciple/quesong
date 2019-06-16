@@ -213,7 +213,7 @@
 }
 .shop_content_list_evaluate_item_content{
 	min-height: 20px;
-	padding: 10px 0;
+	padding-bottom: 10px;
 	font-size: 12px;
 	border-bottom: 1px solid #ebebeb;
 	color: #8e8e8e;

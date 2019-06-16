@@ -51,69 +51,100 @@ Page({
 			showComment: value.length > 7 ? value.slice(0, 7) + "..." : value
 		});
 	},
-	// 支付订单
 	submitOrder() {
-		// console.log((new Date()).getTime());
-		// wx.requestPayment({
-		// 	timeStamp: (new Date()).getTime(),// 时间戳
-		// 	nonceStr: "",//随机字符串，长度为32个字符以下
-		// 	package: "",//统一下单接口返回的 prepay_id 参数值，提交格式如：prepay_id=***
-		// 	signType: "MD5",//签名算法
-		// 	paySign: "",//签名
-		// 	success(res) { },
-		// 	fail(res) { }
-		// });
-		let shopDetail = {
-			id: this.data.shopDetail.id,
-			name: this.data.shopDetail.name,
-			address: this.data.shopDetail.address,
-			url: this.data.shopDetail.url,
-			package_cost: this.data.shopDetail.package_cost,
-			send_price: this.data.shopDetail.send_price
-		};
-		let goodIds = [];
-		this.data.orderList.map(item => {
-			goodIds.push({
-				id: item.id,
-				num: item.num
-			});
-		});
-		request.post({
-			url: "/order/add",
+		let self = this;
+		request.get({
+			url: "/pay/order",
 			data: {
-				id: this.data.shopDetail.id,
-				goodIds: goodIds,
-				shop_detail: JSON.stringify(shopDetail),
-				order_list: JSON.stringify(this.data.orderList),
-				total_price: this.data.totalPrice, // 总价
-				discount_price: this.data.discountPrice, // 优惠价格
-				order_time: (new Date()).getTime(),
-				desc: this.data.comment, // 备注信息
+				total_fee: this.data.totalPrice,
 			}
-		}).then(res => {
-			console.log(res);
-			if(this.data.type == "free") {
-				request.get({
-					url: "/free/subFreeGoods",
-					data: {
-						id: this.data.freeItemId,
+		}).then((res) => {
+			let data = res.data;
+			wx.requestPayment({
+				timeStamp: String(data.timeStamp),
+				nonceStr: data.nonceStr,
+				package: data.package,
+				signType: "MD5",
+				paySign: data.paySign,
+				success(res) {
+					if (res.errMsg == "requestPayment:ok") {
+						console.log("支付成功");
+						let shopDetail = {
+							id: this.data.shopDetail.id,
+							name: this.data.shopDetail.name,
+							address: this.data.shopDetail.address,
+							url: this.data.shopDetail.url,
+							package_cost: this.data.shopDetail.package_cost,
+							send_price: this.data.shopDetail.send_price
+						};
+						let goodIds = [];
+						this.data.orderList.map(item => {
+							goodIds.push({
+								id: item.id,
+								num: item.num
+							});
+						});
+						request.post({
+							url: "/order/add",
+							data: {
+								id: this.data.shopDetail.id,
+								goodIds: goodIds,
+								shop_detail: JSON.stringify(shopDetail),
+								order_list: JSON.stringify(this.data.orderList),
+								total_price: this.data.totalPrice, // 总价
+								discount_price: this.data.discountPrice, // 优惠价格
+								order_time: (new Date()).getTime(),
+								desc: this.data.comment, // 备注信息
+							}
+						}).then(res => {
+							console.log(res);
+							if(this.data.type == "free") {
+								request.get({
+									url: "/free/subFreeGoods",
+									data: {
+										id: this.data.freeItemId,
+									}
+								});
+							}
+							if(this.data.type == "time") {
+								request.get({
+									url: "/time/subTimeGoods",
+									data: {
+										id: this.data.timeItemId,
+									}
+								});
+							}
+							// 支付订单跳转到订单页面
+							wx.switchTab({
+								url: "/pages/order/order"
+							});
+						});
+					} else {
+						wx.showModal({
+							title: "支付失败",
+							content: "支付失败, 请重新支付",
+							confirmText: "重新支付",
+							success: (result) => {
+								if (result.confirm) self.submitOrder();
+							}
+						});
 					}
-				});
-			}
-			if(this.data.type == "time") {
-				request.get({
-					url: "/time/subTimeGoods",
-					data: {
-						id: this.data.timeItemId,
-					}
-				});
-			}
-			// 支付订单跳转到订单页面
-			wx.switchTab({
-				url: "/pages/order/order"
+				},
+				fail(res) {
+					console.log(res, "error");
+					wx.showModal({
+						title: "支付失败",
+						content: "支付失败, 请重新支付",
+						confirmText: "重新支付",
+						success: (result) => {
+							if (result.confirm) self.submitOrder();
+						}
+					});
+				}
 			});
 		});
 	},
+
 	// 点击编辑收货地址
 	goEditPage() {
 		// 跳转到编辑地址表单页面
