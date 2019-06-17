@@ -13,7 +13,6 @@
             <van-icon custom-class="home_header_location_icon" name="arrow-down" />
           </view>
         </van-col>
-        <!-- <van-col span="4">分享</van-col> -->
       </van-row>
     <van-row>
         <van-search
@@ -21,11 +20,9 @@
           placeholder="请输入"
           use-action-slot
           bind:search="onSearch">
-          <!-- <view slot="action" bindtap="onSearch">搜索</view> -->
         </van-search>
     </van-row>
   </van-row>
-  <!-- <van-row></van-row> -->
 
   <scroll-view
     scroll-y
@@ -110,7 +107,7 @@
       <van-row custom-class="home_content_goods_type">
         <van-tabs active="{{ 0 }}" bind:change="onChange">
           <van-tab title="综合排序">
-            <van-row bind:tap="shopClick" data-id="{{item.id}}" custom-class="home_content_goods_item" wx:for="{{shop}}" wx:key="{{index}}">
+            <van-row wx:if="{{shop.length != 0}}" bind:tap="shopClick" data-id="{{item.id}}" custom-class="home_content_goods_item" wx:for="{{shop}}" wx:key="{{index}}">
               <van-col custom-class="home_content_goods_item_img">
                 <image src="{{item.url}}" />
               </van-col>
@@ -134,9 +131,10 @@
                 </van-row>
               </van-col>
             </van-row>
+			<van-row wx:if="{{shop.length == 0 }}" custom-class="home_content_empty">暂无数据</van-row>
           </van-tab>
           <van-tab title="销量最高">
-			<van-row bind:tap="shopClick" data-id="{{item.id}}" custom-class="home_content_goods_item" wx:for="{{sortSelesData}}" wx:key="{{index}}">
+			<van-row bind:tap="shopClick" data-id="{{item.id}}" wx:if="{{sortSelesData.length != 0}}" custom-class="home_content_goods_item" wx:for="{{sortSelesData}}" wx:key="{{index}}">
               <van-col custom-class="home_content_goods_item_img">
                 <image src="{{item.url}}" />
               </van-col>
@@ -160,6 +158,7 @@
                 </van-row>
               </van-col>
             </van-row>
+			<van-row wx:if="{{shop.length == 0 }}" custom-class="home_content_empty">暂无数据</van-row>
 		  </van-tab>
         </van-tabs>
       </van-row>

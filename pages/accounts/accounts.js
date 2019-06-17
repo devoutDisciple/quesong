@@ -53,6 +53,7 @@ Page({
 	},
 	submitOrder() {
 		let self = this;
+		console.log(this.data.totalPrice, 11);
 		request.get({
 			url: "/pay/order",
 			data: {

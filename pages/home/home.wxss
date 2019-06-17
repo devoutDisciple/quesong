@@ -199,3 +199,9 @@
 .home_content_goods_item_introduce_tag van-tag{
     margin-right: 2px;
 }
+.home_content_empty{
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+	color: #8b8b8b;
+}
