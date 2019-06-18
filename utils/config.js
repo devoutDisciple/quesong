@@ -1,8 +1,8 @@
 module.exports = {
-	appid: "wx2769b76cc1aa3502",
-	AppSecret: "7d5ba35e477b4d643f198fcef87b1f2d",
+	appid: "wxa2def7c0db261423",
+	AppSecret: "f471b4adca5af431d114ea5044acfdf4",
 	grant_type: "authorization_code",
-	baseUrl: "http://www.bws666.com:3102",
+	baseUrl: "https://www.quesong.top",
 	// baseUrl: "http://localhost:3102",
 	phoneNumber:  "15026839702", // 客服电话
 };

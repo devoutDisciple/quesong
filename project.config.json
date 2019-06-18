@@ -9,6 +9,7 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
+		"coverView": true,
 		"autoAudits": false,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
@@ -21,7 +22,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.7.0",
-	"appid": "wx2769b76cc1aa3502",
+	"appid": "wxa2def7c0db261423",
 	"projectname": "front",
 	"debugOptions": {
 		"hidedInDevtools": []
