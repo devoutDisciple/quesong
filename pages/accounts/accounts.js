@@ -53,11 +53,11 @@ Page({
 	},
 	submitOrder() {
 		let self = this;
-		console.log(this.data.totalPrice, 11);
+		console.log(self.data.totalPrice, 11);
 		request.get({
 			url: "/pay/order",
 			data: {
-				total_fee: this.data.totalPrice,
+				total_fee: self.data.totalPrice,
 			}
 		}).then((res) => {
 			let data = res.data;
@@ -71,15 +71,15 @@ Page({
 					if (res.errMsg == "requestPayment:ok") {
 						console.log("支付成功");
 						let shopDetail = {
-							id: this.data.shopDetail.id,
-							name: this.data.shopDetail.name,
-							address: this.data.shopDetail.address,
-							url: this.data.shopDetail.url,
-							package_cost: this.data.shopDetail.package_cost,
-							send_price: this.data.shopDetail.send_price
+							id: self.data.shopDetail.id,
+							name: self.data.shopDetail.name,
+							address: self.data.shopDetail.address,
+							url: self.data.shopDetail.url,
+							package_cost: self.data.shopDetail.package_cost,
+							send_price: self.data.shopDetail.send_price
 						};
 						let goodIds = [];
-						this.data.orderList.map(item => {
+						self.data.orderList.map(item => {
 							goodIds.push({
 								id: item.id,
 								num: item.num
@@ -88,30 +88,30 @@ Page({
 						request.post({
 							url: "/order/add",
 							data: {
-								id: this.data.shopDetail.id,
+								id: self.data.shopDetail.id,
 								goodIds: goodIds,
 								shop_detail: JSON.stringify(shopDetail),
-								order_list: JSON.stringify(this.data.orderList),
-								total_price: this.data.totalPrice, // 总价
-								discount_price: this.data.discountPrice, // 优惠价格
+								order_list: JSON.stringify(self.data.orderList),
+								total_price: self.data.totalPrice, // 总价
+								discount_price: self.data.discountPrice, // 优惠价格
 								order_time: (new Date()).getTime(),
-								desc: this.data.comment, // 备注信息
+								desc: self.data.comment, // 备注信息
 							}
 						}).then(res => {
 							console.log(res);
-							if(this.data.type == "free") {
+							if(self.data.type == "free") {
 								request.get({
 									url: "/free/subFreeGoods",
 									data: {
-										id: this.data.freeItemId,
+										id: self.data.freeItemId,
 									}
 								});
 							}
-							if(this.data.type == "time") {
+							if(self.data.type == "time") {
 								request.get({
 									url: "/time/subTimeGoods",
 									data: {
-										id: this.data.timeItemId,
+										id: self.data.timeItemId,
 									}
 								});
 							}
